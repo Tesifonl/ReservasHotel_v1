@@ -1,4 +1,4 @@
-# Tarea: Reservas Hotel
+MAX_NUMERO_MESES_RESERVA# Tarea: Reservas Hotel
 ## Profesor: Andrés Rubio del Río
 ## Alumno:Tesifón Linares Bonilla
 
