@@ -56,8 +56,15 @@ public class Huespedes {
 	
 	public Huesped buscar(Huesped huesped) {
 	
+		boolean encontrado=false;
+		
 		for (int i=0;i<huespedes.length;i++) {
-		if(huespedes[i].equals(huesped)) {return huesped;}
-		else {return null;}}
+		if(huespedes[i].equals(huesped)) {encontrado=true;}
+		else {encontrado=false;}}
+		
+		if (encontrado=true) {return huesped;}else {return null;}
 	}
+	
+	
+	
 }
