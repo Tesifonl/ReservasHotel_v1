@@ -31,7 +31,7 @@ public class Huespedes {
 		return copiahuespedes;
 	}
 
-	public int getTamaño () {
+	public int getTamano () {
 		
 		for (int i=0;i<huespedes.length;i++) {
 		if(huespedes[i]!=null) {tamaño++;}
@@ -50,12 +50,11 @@ public class Huespedes {
 		
 		for (int i=0;i<huespedes.length;i++) {
 		if(huespedes[i].equals(huesped)) {System.out.println("Huesped ya incluido en le array");}
-		else {huespedes[getTamaño()+1]=huesped;};
+		else {huespedes[getTamano()+1]=huesped;};
 		}
 	}
 	
 	public Huesped buscar(Huesped huesped) {
-	
 		boolean encontrado=false;
 		
 		for (int i=0;i<huespedes.length;i++) {
@@ -65,6 +64,55 @@ public class Huespedes {
 		if (encontrado=true) {return huesped;}else {return null;}
 	}
 	
+	public void borrar (Huesped huesped) {
+		if(huesped!=null) {
+		int contador=0;
+			for (int i=0;i<huespedes.length;i++) {
+				contador++;
+				if(huespedes[i].equals(huesped)) {desplazarUnaPosicionHaciaIzquierda(contador);}
+				else {System.out.println("Huesped ya incluido en le array");}}
+		
+		}else {throw new NullPointerException("ERROR: No se puede borrar un hu�sped nulo.");}
+	}
 	
 	
+	public int buscarIndice (Huesped huesped) {
+		
+		int contador=0;
+		int posicion=0;
+
+		for (int i=0;i<huespedes.length;i++) {
+			contador++;
+			posicion=contador;
+			
+			if (huespedes[i].equals(huesped)) {posicion=contador;}
+			{posicion=0;}
+		}
+		return posicion;
+	}
+	
+	public boolean tamañoSuperado(int indice) {
+		boolean superado=false;
+		
+		if (indice> getTamano()) {superado=true;}
+		else{superado=false;}
+		
+		return superado;
+	}
+	
+	public boolean capacidadSuperada(int indice) {
+		boolean superado=false;
+		
+		if (indice> getCapacidad()) {superado=true;}
+		else{superado=false;}
+		
+		return superado;
+	}
+	
+	public void desplazarUnaPosicionHaciaIzquierda(int indice) {
+		
+		for (int i=indice;i<huespedes.length;i++) {
+			huespedes[i]=huespedes[i+1];}
+			
+	}
 }
