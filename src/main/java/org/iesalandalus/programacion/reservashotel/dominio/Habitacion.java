@@ -65,7 +65,7 @@ public class Habitacion {
 	}
 
 	public void setPlanta(int planta) {
-		if (planta<=MIN_NUMERO_PLANTA || planta>=MAX_NUMERO_PLANTA) {
+		if (planta<=MIN_NUMERO_PLANTA || planta>MAX_NUMERO_PLANTA) {
 			throw new IllegalArgumentException("ERROR: No se puede establecer como planta de una habitaci�n un valor menor que 0 ni mayor que 3.");}
 			else {this.planta = planta;}
 	}

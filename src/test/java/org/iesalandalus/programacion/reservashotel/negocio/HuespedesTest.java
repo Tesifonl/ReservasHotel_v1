@@ -3,6 +3,7 @@ package org.iesalandalus.programacion.reservashotel.negocio;
 
 
 import org.junit.jupiter.api.Test;
+import org.iesalandalus.programacion.reservashotel.MainApp;
 import org.iesalandalus.programacion.reservashotel.dominio.Huesped;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -155,7 +156,6 @@ public class HuespedesTest {
             assertEquals(huesped3, huespedes.buscar(huesped3), HUESPED_NO_ESPERADO);
             assertNotSame(huesped3, copiaHuespedes[2], REFERENCIA_NO_ESPERADA);
             assertEquals(huesped3, copiaHuespedes[2], OPERACION_NO_REALIZADA);
-
 
         } catch (OperationNotSupportedException e) {
             fail(EXCEPCION_NO_PROCEDE);
