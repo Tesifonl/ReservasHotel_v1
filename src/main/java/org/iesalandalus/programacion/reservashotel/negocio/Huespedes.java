@@ -20,7 +20,9 @@ public class Huespedes {
 	
 	
 	public Huesped [] get() {
-		return huespedes;
+		Huesped [] copia=copiaProfundaHuespedes();
+		return copia;
+		
 	}
 	
 	
@@ -28,7 +30,8 @@ public class Huespedes {
 		Huesped [] copiahuespedes=new Huesped [huespedes.length];
 		
 		for (int i=0;i<huespedes.length;i++) {
-		copiahuespedes[i]=new Huesped(huespedes[i]);
+		if(huespedes[i]!=null) {copiahuespedes[i]=new Huesped(huespedes[i]);}
+		else {copiahuespedes[i]=null;}
 		}
 		return copiahuespedes;
 	}
@@ -107,7 +110,7 @@ public class Huespedes {
 			if(huespedes[i] != null && huespedes[i].equals(huesped)) {encontrado=true;}
 			else {System.out.println("No encontrado");}}
 			
-			if (encontrado==true) {return huesped;}else {return null;}
+			if (encontrado==true) {return new Huesped(huesped);}else {return null;}
 		}else {throw new NullPointerException("ERROR:");}
 	}
 		
