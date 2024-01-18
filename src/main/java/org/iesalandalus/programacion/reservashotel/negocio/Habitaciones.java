@@ -1,7 +1,6 @@
 package org.iesalandalus.programacion.reservashotel.negocio;
 
 import javax.naming.OperationNotSupportedException;
-
 import org.iesalandalus.programacion.reservashotel.dominio.Habitacion;
 import org.iesalandalus.programacion.reservashotel.dominio.TipoHabitacion;
 
@@ -20,7 +19,8 @@ public class Habitaciones {
 	
 
 	public Habitacion [] get() {
-		return habitaciones;
+		Habitacion[] copia=copiaProfundaHabitaciones();
+		return copia;
 	}
 	
 	
@@ -28,7 +28,8 @@ public class Habitaciones {
 		Habitacion [] copiahabitaciones=new Habitacion [habitaciones.length];
 		
 		for (int i=0;i<habitaciones.length;i++) {
-		copiahabitaciones[i]=new Habitacion(habitaciones[i]);
+		if (habitaciones[i]!=null) {copiahabitaciones[i]=new Habitacion(habitaciones[i]);}
+		else {copiahabitaciones[i]=null;}
 		}
 		return copiahabitaciones;
 	}
@@ -52,6 +53,8 @@ public class Habitaciones {
 	
 	
 	public int getTamano() {
+		int tamano=0;
+		
 		for (int i=0;i<habitaciones.length;i++) {
 		if(habitaciones[i]!=null) {tamano++;}
 		else {System.out.println("Nulo");};
@@ -66,12 +69,17 @@ public class Habitaciones {
 	}
 	
 	public void insertar (Habitacion habitacion) throws OperationNotSupportedException {
+		boolean noEncontrado=false;
+		
 		if(habitacion!=null) {
 			for (int i=0;i<habitaciones.length;i++) {
-			if(habitaciones[i] != null && habitaciones[i].equals(habitacion)) {throw new OperationNotSupportedException("Huesped ya incluido en le array");}
-			else {habitaciones[getTamano()+1]=habitacion;}}
+			if(habitaciones[i] != null && habitaciones[i].equals(habitacion)) {throw new OperationNotSupportedException("ERROR: Ya existe una habitaci�n con ese identificador.");}
+			else {noEncontrado=true;}}
 			
-		}else {throw new NullPointerException("ERROR: No se puede insertar un hu�sped nulo.");}
+			if(noEncontrado==true && getTamano()<getCapacidad()){habitaciones[getTamano()]=habitacion;}
+			else{throw new OperationNotSupportedException("ERROR: No se aceptan m�s habitaciones.");} 
+			
+		}else {throw new NullPointerException("ERROR: No se puede insertar una habitaci�n nula.");}
 	}
 	
 	public int buscarIndice (Habitacion habitacion) {
@@ -80,10 +88,10 @@ public class Habitaciones {
 			int posicion=0;
 	
 			for (int i=0;i<habitaciones.length;i++) {
-				contador++;
+				contador=i;
 				posicion=contador;
 				
-				if (habitaciones[i].equals(habitacion)) {posicion=contador;}
+				if (habitaciones[i]!=null && habitaciones[i].equals(habitacion)) {posicion=contador;}
 				{posicion=0;}
 			}
 			return posicion;		
@@ -114,28 +122,39 @@ public class Habitaciones {
 			boolean encontrado=false;
 			
 			for (int i=0;i<habitaciones.length;i++) {
-			if(habitaciones[i].equals(habitacion)) {encontrado=true;}
-			else {encontrado=false;}}
+			if(habitaciones[i]!=null &&habitaciones[i].equals(habitacion)) {encontrado=true;}
+			else {System.out.println("No encontrado");}}
 			
-			if (encontrado=true) {return habitacion;}else {return null;}
+			if (encontrado==true) {return new Habitacion (habitacion);}else {return null;}
 		}else {throw new NullPointerException("ERROR:");}
 	}
 	
 	public void borrar (Habitacion habitacion) throws OperationNotSupportedException {
+		boolean encontrado=false;
+		
 		if(habitacion!=null) {
 		int contador=0;
+		int indice=0;
 			for (int i=0;i<habitaciones.length;i++) {
-				contador++;
-				if(habitaciones[i].equals(habitacion)) {desplazarUnaPosicionHaciaIzquierda(contador);}
-				else {throw new OperationNotSupportedException("ERROR: No existe ning�n hu�sped como el indicado.");}}	
-		}else {throw new NullPointerException("ERROR: No se puede borrar un hu�sped nulo.");}
+				contador=i;
+				if(habitaciones[i]!=null && habitaciones[i].equals(habitacion)) {
+				encontrado=true;indice=contador;}
+				else {System.out.println("No encontrado");}}
+				
+			
+			if(encontrado==true){habitaciones[indice]=null;
+			desplazarUnaPosicionHaciaIzquierda(indice);}
+			else {throw new OperationNotSupportedException("ERROR: No existe ninguna habitaci�n como la indicada.");}	
+		
+	}else {throw new NullPointerException("ERROR: No se puede borrar una habitaci�n nula.");}
 	}
 	
 	
 	public void desplazarUnaPosicionHaciaIzquierda(int indice) {
 		
-		for (int i=indice;i<habitaciones.length;i++) {
-			habitaciones[i]=habitaciones[i+1];}
+		for (int i=indice;i<habitaciones.length-1;i++) {
+			habitaciones[i]=habitaciones[i+1];
+			habitaciones[habitaciones.length-1]=null;}
 			
 	}
 	

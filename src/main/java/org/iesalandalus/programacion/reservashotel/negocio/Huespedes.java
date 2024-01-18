@@ -37,7 +37,6 @@ public class Huespedes {
 	}
 
 	public int getTamano () {
-		tamano=0;
 		for (int i=0;i<huespedes.length;i++) {
 		if(huespedes[i]!=null) {tamano++;}
 		else {System.out.println("Nulo");};
