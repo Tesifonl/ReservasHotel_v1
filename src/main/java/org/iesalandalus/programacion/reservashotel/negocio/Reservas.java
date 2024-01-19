@@ -21,7 +21,8 @@ public class Reservas {
 	
 
 	public Reserva [] get() {
-		return reservas;
+		Reserva[] copia=copiaProfundaReservas();
+		return copia;
 	}
 	
 	
@@ -29,7 +30,8 @@ public class Reservas {
 		Reserva [] copiaReservas=new Reserva [reservas.length];
 		
 		for (int i=0;i<reservas.length;i++) {
-		copiaReservas[i]=new Reserva(reservas[i]);
+			if (reservas[i]!=null) {copiaReservas[i]=new Reserva(reservas[i]);}
+			else {copiaReservas[i]=null;}
 		}
 		return copiaReservas;
 	}
@@ -37,6 +39,8 @@ public class Reservas {
 	
 	
 	public int getTamano() {
+		int tamano=0;
+		
 		for (int i=0;i<reservas.length;i++) {
 		if(reservas[i]!=null) {tamano++;}
 		else {System.out.println("Nulo");};
@@ -51,12 +55,17 @@ public class Reservas {
 	}
 	
 	public void insertar (Reserva reserva) throws OperationNotSupportedException {
+		boolean noEncontrado=false;
+		
 		if(reserva!=null) {
 			for (int i=0;i<reservas.length;i++) {
-			if(reservas[i] != null && reservas[i].equals(reserva)) {throw new OperationNotSupportedException("Huesped ya incluido en le array");}
-			else {reservas[getTamano()+1]=reserva;}}
+			if(reservas[i] != null && reservas[i].equals(reserva)) {throw new OperationNotSupportedException("ERROR: Ya existe una reserva igual.");}
+			else {noEncontrado=true;}}
 			
-		}else {throw new NullPointerException("ERROR: No se puede insertar un hu�sped nulo.");}
+			if(noEncontrado==true && getTamano()<getCapacidad()){reservas[getTamano()]=reserva;}
+			else{throw new OperationNotSupportedException("ERROR: No se aceptan m�s reservas.");} 
+			
+		}else {throw new NullPointerException("ERROR: No se puede insertar una reserva nula.");}
 	}
 	
 	public int buscarIndice (Reserva reserva) {
@@ -65,10 +74,10 @@ public class Reservas {
 			int posicion=0;
 	
 			for (int i=0;i<reservas.length;i++) {
-				contador++;
+				contador=i;
 				posicion=contador;
 				
-				if (reservas[i].equals(reserva)) {posicion=contador;}
+				if (reservas[i]!=null && reservas[i].equals(reserva)) {posicion=contador;}
 				{posicion=0;}
 			}
 			return posicion;		
@@ -99,77 +108,122 @@ public class Reservas {
 			boolean encontrado=false;
 			
 			for (int i=0;i<reservas.length;i++) {
-			if(reservas[i].equals(reserva)) {encontrado=true;}
-			else {encontrado=false;}}
+			if(reservas[i]!=null && reservas[i].equals(reserva)) {encontrado=true;}
+			else {System.out.println("No encontrado");}}
 			
-			if (encontrado=true) {return reserva;}else {return null;}
+			if (encontrado==true) {return new Reserva(reserva);}else {return null;}
 		}else {throw new NullPointerException("ERROR:");}
 	}
 	
 	public void borrar (Reserva reserva) throws OperationNotSupportedException {
+		boolean encontrado=false;
+		
 		if(reserva!=null) {
 		int contador=0;
+		int indice=0;
 			for (int i=0;i<reservas.length;i++) {
-				contador++;
-				if(reservas[i].equals(reserva)) {desplazarUnaPosicionHaciaIzquierda(contador);}
-				else {throw new OperationNotSupportedException("ERROR: No existe ning�n hu�sped como el indicado.");}}	
-		}else {throw new NullPointerException("ERROR: No se puede borrar un hu�sped nulo.");}
+				contador=i;
+				if(reservas[i]!=null && reservas[i].equals(reserva)){
+					encontrado=true;indice=contador;}
+					else {System.out.println("No encontrado");}}
+			
+			if(encontrado==true){reservas[indice]=null;	
+			desplazarUnaPosicionHaciaIzquierda(indice);}
+			else {throw new OperationNotSupportedException("ERROR: No existe ninguna reserva como la indicada.");}	
+		
+		}else {throw new NullPointerException("ERROR: No se puede borrar una reserva nula.");}
 	}
 	
 	
 	public void desplazarUnaPosicionHaciaIzquierda(int indice) {
 		
-		for (int i=indice;i<reservas.length;i++) {
-			reservas[i]=reservas[i+1];}
+		for (int i=indice;i<reservas.length-1;i++) {
+			reservas[i]=reservas[i+1];
+			reservas[reservas.length-1]=null;}
 			
 	}
 	
-	public Reserva [] get (Huesped huesped) {
+	public Reserva [] getReservas (Huesped huesped) {
 	
 	if(huesped!=null) {
 		Reserva [] nuevoArray=new Reserva[reservas.length];
-		int contador=0;
+		boolean encontrado=false;
+		int posicion=0;
+	
 		
 		for (int i=0;i<reservas.length;i++) {
 			if(reservas[i].getHuesped().equals(huesped)) {
-				contador++;
-				nuevoArray[contador]=reservas[i];
+				encontrado=true;
+				posicion=i;
 			}else {System.out.println("Nulo");}
-		
+			
+		if (encontrado==true) {
+			int tamano=0;
+			
+			for (int j=0;j<nuevoArray.length;j++) {
+			if(nuevoArray[j]!=null) {tamano++;}
+			else {System.out.println("Nulo");}}
+			
+			nuevoArray[tamano]=reservas[posicion];
+			}else {System.out.println("Nulo");}
+			
 		}return nuevoArray;
-	}else {throw new  NullPointerException("ERROR: No se puede insertar un hu�sped nulo.");}
+		
+	}else {throw new  NullPointerException("ERROR: No se pueden buscar reservas de un huesped nulo.");}
 	}
 	
-	public Reserva [] get (TipoHabitacion tipoHabitacion) {
+	public Reserva [] getReservas (TipoHabitacion tipoHabitacion) {
 		
 		if(tipoHabitacion!=null) {
 			Reserva [] nuevoArray=new Reserva[reservas.length];
-			int contador=0;
+			boolean encontrado=false;
+			int posicion=0;
 			
 			for (int i=0;i<reservas.length;i++) {
 				if(reservas[i].getHabitacion().getTipoHabitacion().equals(tipoHabitacion)) {
-					contador++;
-					nuevoArray[contador]=reservas[i];
+				encontrado=true;
+				posicion=i;
 				}else {System.out.println("Nulo");}
-			
+				
+			if (encontrado==true) {
+				int tamano=0;
+					
+				for (int j=0;j<nuevoArray.length;j++) {
+				if(nuevoArray[j]!=null) {tamano++;}
+				else {System.out.println("Nulo");}}
+					
+				nuevoArray[tamano]=reservas[posicion];
+				}else {System.out.println("Nulo");}			
 			}return nuevoArray;
-		}else {throw new  NullPointerException("ERROR: No se puede insertar un hu�sped nulo.");}
+		}else {throw new  NullPointerException("ERROR: No se pueden buscar reservas de un tipo de habitaci�n nula.");}
 	}
 	
-	public Reserva [] get (Habitacion habitacion) {
+	
+	public Reserva [] getReservasFuturas (Habitacion habitacion) {
 		
 	if(habitacion!=null) {
 		Reserva [] nuevoArray=new Reserva[reservas.length];
-		int contador=0;
+		boolean encontrado=false;
+		int posicion=0;
 		
 		for (int i=0;i<reservas.length;i++) {
 			if(reservas[i].getHabitacion().equals(habitacion)) {
-				contador++;
-				nuevoArray[contador]=reservas[i];
+			encontrado=true;
+			posicion=i;
 			}else {System.out.println("Nulo");}
-		
+			
+		if (encontrado==true) {
+			int tamano=0;
+				
+			for (int j=0;j<nuevoArray.length;j++) {
+			if(nuevoArray[j]!=null) {tamano++;}
+			else {System.out.println("Nulo");}}
+				
+			nuevoArray[tamano]=reservas[posicion];
+			}else {System.out.println("Nulo");}
+			
 		}return nuevoArray;
-	}else {throw new  NullPointerException("ERROR: No se puede insertar un hu�sped nulo.");}
+	}else {throw new  NullPointerException("ERROR: No se pueden buscar reservas de una habitaci�n nula.");}
 	}
 
 }
