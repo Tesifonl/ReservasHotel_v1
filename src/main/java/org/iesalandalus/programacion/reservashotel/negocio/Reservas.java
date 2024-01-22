@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.reservashotel.negocio;
 
+import java.time.LocalDate;
+
 import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.reservashotel.dominio.Habitacion;
@@ -200,14 +202,14 @@ public class Reservas {
 	
 	
 	public Reserva [] getReservasFuturas (Habitacion habitacion) {
-		
+
 	if(habitacion!=null) {
 		Reserva [] nuevoArray=new Reserva[reservas.length];
 		boolean encontrado=false;
 		int posicion=0;
 		
 		for (int i=0;i<reservas.length;i++) {
-			if(reservas[i].getHabitacion().equals(habitacion)) {
+			if(reservas[i].getHabitacion().equals(habitacion) || reservas[i].getFechaInicioReserva().isAfter(LocalDate.now())) {
 			encontrado=true;
 			posicion=i;
 			}else {System.out.println("Nulo");}
@@ -225,5 +227,6 @@ public class Reservas {
 		}return nuevoArray;
 	}else {throw new  NullPointerException("ERROR: No se pueden buscar reservas de una habitaci�n nula.");}
 	}
+	
 
 }
