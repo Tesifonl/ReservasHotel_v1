@@ -35,10 +35,30 @@ public class MainApp {
 		Opcion opcion=ejecutarOpcion(Consola.elegirOpcion());
 		
 		do {
-		if (opcion.equals(Opcion.INSERTAR_HUESPED)) {huespedes.insertar(Consola.leerHuesped());}
-		if (opcion.equals(Opcion.BUSCAR_HUESPED)) {huespedes.buscar(Consola.getHuespedPorDni());}
-		if (opcion.equals(Opcion.BORRAR_HUESPED)) {huespedes.borrar(Consola.getHuespedPorDni());}
-		if (opcion.equals(Opcion.MOSTRAR_HUESPEDES)) {huespedes.get();}
+			
+		if (opcion.equals(Opcion.INSERTAR_HUESPED)) {
+			try{huespedes.insertar(Consola.leerHuesped());}
+				catch(OperationNotSupportedException e){
+				System.out.println(e.getMessage());}
+				catch(NullPointerException e){
+				System.out.println(e.getMessage());}}
+		
+		if (opcion.equals(Opcion.BUSCAR_HUESPED)) {
+			try{huespedes.buscar(Consola.getHuespedPorDni());}
+			catch(NullPointerException e){
+			System.out.println(e.getMessage());}}
+		
+		if (opcion.equals(Opcion.BORRAR_HUESPED)) {
+			try{huespedes.borrar(Consola.getHuespedPorDni());}
+			catch(OperationNotSupportedException e){
+			System.out.println(e.getMessage());}
+			catch(NullPointerException e){
+			System.out.println(e.getMessage());}}
+		
+		if (opcion.equals(Opcion.MOSTRAR_HUESPEDES)) {
+			if(huespedes.getTamano()>0) {System.out.println(huespedes.get());}
+			else {System.out.println("No hay ningun huesped");} }
+		
 		if (opcion.equals(Opcion.INSERTAR_HABITACION)) {habitaciones.insertar(Consola.leerHabitacion());}
 		if (opcion.equals(Opcion.BUSCAR_HABITACION)) {habitaciones.buscar(Consola.leerHabitacionPorIdentificador());}
 		if (opcion.equals(Opcion.BORRAR_HABITACION)) {habitaciones.borrar(Consola.leerHabitacionPorIdentificador());}
