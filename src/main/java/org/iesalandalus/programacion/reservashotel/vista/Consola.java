@@ -118,10 +118,14 @@ public class Consola {
 			Huesped huesped=new Huesped( nombre, dni, correo, telefono, fechaNacimiento);
 			return huesped;
 			}
-			catch(NullPointerException e) {
+			catch(IllegalArgumentException e) {
 				System.out.println(e.getMessage());
 				return null;
-        }
+			}
+			catch(NullPointerException e) {
+			System.out.println(e.getMessage());
+			return null;
+			}
 
 	}
 	
@@ -129,13 +133,17 @@ public class Consola {
 		try {
 			System.out.println("Introduce un dni: ");
 			String dni=Entrada.cadena();
-			Huesped huesped=new Huesped( null, dni, null, null, null);
+			Huesped huesped=new Huesped( "Tesifon Linares", dni, "Tesi@gmail.com", "950112233", LocalDate.of(2002, 9, 15));
 			return huesped;
 			}
-			catch(NullPointerException e){
+			catch(IllegalArgumentException e){
 			System.out.println(e.getMessage());
 			return null;
-		}
+			}
+			catch(NullPointerException e) {
+			System.out.println(e.getMessage());
+			return null;
+			}
 	}
 
 	public static LocalDate leerFecha(String mensaje ) {
@@ -185,14 +193,17 @@ public class Consola {
 		System.out.println("Introduce un puerta: ");
 		int puerta=Entrada.entero();
 		
-
-		Habitacion habitacion=new Habitacion( planta, puerta, 0, null, null);
+		Habitacion habitacion=new Habitacion( planta, puerta, 0, "1001", TipoHabitacion.DOBLE);
 		return habitacion;
 		}
+		catch(IllegalArgumentException e){
+		System.out.println(e.getMessage());
+		return null;
+		}
 		catch(NullPointerException e) {
-			System.out.println(e.getMessage());
-			return null;
-    }
+		System.out.println(e.getMessage());
+		return null;
+		}
 	}
 	
 	public static TipoHabitacion leerTipoHabitacion() {
@@ -268,10 +279,14 @@ public class Consola {
 		Reserva reserva=new Reserva( huesped,habitacion, regimen,fechaInicioReserva,fechaFinReserva,numeroPersonas);
 		return reserva;
 		}
+		catch(IllegalArgumentException e){
+		System.out.println(e.getMessage());
+		return null;
+		}
 		catch(NullPointerException e) {
-			System.out.println(e.getMessage());
-			return null;
-    }
+		System.out.println(e.getMessage());
+		return null;
+		}
 	}
 	
 }
