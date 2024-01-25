@@ -208,23 +208,19 @@ public class Reservas {
 		boolean encontrado=false;
 		int posicion=0;
 		
-		for (int i=0;i<reservas.length;i++) {
+		for (int i=0;i<reservas.length;i++) 
 			if(reservas[i].getHabitacion().equals(habitacion) || reservas[i].getFechaInicioReserva().isAfter(LocalDate.now())) {
 			encontrado=true;
 			posicion=i;
+			nuevoArray[posicion]=reservas[posicion];
 			}else {System.out.println("Nulo");}
 			
 		if (encontrado==true) {
-			int tamano=0;
-				
-			for (int j=0;j<nuevoArray.length;j++) {
-			if(nuevoArray[j]!=null) {tamano++;}
-			else {System.out.println("Nulo");}}
-				
-			nuevoArray[tamano]=reservas[posicion];
-			}else {System.out.println("Nulo");}
+			System.out.println(nuevoArray);
+			return nuevoArray;
+			}else {System.out.println("Nulo");return null;}
 			
-		}return nuevoArray;
+
 	}else {throw new  NullPointerException("ERROR: No se pueden buscar reservas de una habitaci�n nula.");}
 	}
 	

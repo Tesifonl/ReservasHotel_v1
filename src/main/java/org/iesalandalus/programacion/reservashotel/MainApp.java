@@ -28,14 +28,12 @@ public class MainApp {
 		Huespedes huespedes=new Huespedes(CAPACIDAD);
 		Habitaciones habitaciones=new Habitaciones(CAPACIDAD);
 		Reservas reservas=new Reservas(CAPACIDAD);
-		
-		
-		
+
 		Consola.mostrarMenu();
-		Opcion opcion=ejecutarOpcion(Consola.elegirOpcion());
+		Opcion opcion=Consola.elegirOpcion();
 		
 		do {
-			
+
 		if (opcion.equals(Opcion.INSERTAR_HUESPED)) {
 			try{huespedes.insertar(Consola.leerHuesped());}
 				catch(OperationNotSupportedException e){
@@ -59,21 +57,56 @@ public class MainApp {
 			if(huespedes.getTamano()>0) {System.out.println(huespedes.get());}
 			else {System.out.println("No hay ningun huesped");} }
 		
-		if (opcion.equals(Opcion.INSERTAR_HABITACION)) {habitaciones.insertar(Consola.leerHabitacion());}
-		if (opcion.equals(Opcion.BUSCAR_HABITACION)) {habitaciones.buscar(Consola.leerHabitacionPorIdentificador());}
-		if (opcion.equals(Opcion.BORRAR_HABITACION)) {habitaciones.borrar(Consola.leerHabitacionPorIdentificador());}
-		if (opcion.equals(Opcion.MOSTRAR_HABITACIONES)) {habitaciones.get();}
-		if (opcion.equals(Opcion.INSERTAR_RESERVA)) {reservas.insertar(Consola.leerReserva());}
-		if (opcion.equals(Opcion.ANULAR_RESERVA)) {reservas.getReservas(Consola.getHuespedPorDni());}
-		if (opcion.equals(Opcion.MOSTRAR_RESERVAS)) {reservas.get();}
+		if (opcion.equals(Opcion.INSERTAR_HABITACION)) {
+			try{habitaciones.insertar(Consola.leerHabitacion());}
+			catch(OperationNotSupportedException e){
+				System.out.println(e.getMessage());}
+				catch(NullPointerException e){
+				System.out.println(e.getMessage());}}
+		
+		if (opcion.equals(Opcion.BUSCAR_HABITACION)) {
+			try{habitaciones.buscar(Consola.leerHabitacionPorIdentificador());}
+			catch(NullPointerException e){
+			System.out.println(e.getMessage());}}
+			
+		if (opcion.equals(Opcion.BORRAR_HABITACION)) {
+			try{habitaciones.borrar(Consola.leerHabitacionPorIdentificador());}
+			catch(OperationNotSupportedException e){
+			System.out.println(e.getMessage());}
+			catch(NullPointerException e){
+			System.out.println(e.getMessage());}}		
+		
+		if (opcion.equals(Opcion.MOSTRAR_HABITACIONES)) {
+			if(habitaciones.getTamano()>0) {habitaciones.get();}
+			else {System.out.println("No hay ningun huesped");} }
+		
+		if (opcion.equals(Opcion.INSERTAR_RESERVA)) {
+			try{reservas.insertar(Consola.leerReserva());}
+			catch(OperationNotSupportedException e){
+			System.out.println(e.getMessage());}
+			catch(NullPointerException e){
+			System.out.println(e.getMessage());}}
+		
+		if (opcion.equals(Opcion.ANULAR_RESERVA)) {
+
+			Reserva [] reservaHuesped=reservas.getReservas(Consola.getHuespedPorDni());
+			for (int i=0;i<reservaHuesped.length;i++)
+			if (reservaHuesped[i]!=null) {
+				reservaHuesped[i]=null;
+				System.out.println("Procedemos a anular todas las reservas del huesped");
+			}else {System.out.println("No existe ninguna reserva anulable para este huesped");}}
+
+			
+		if (opcion.equals(Opcion.MOSTRAR_RESERVAS)) {
+			if(reservas.getTamano()>=1) {reservas.get();}
+			else {System.out.println("No hay reservas");}}
+		
+		
 		if (opcion.equals(Opcion.CONSULTAR_DISPONIBILIDAD)) {reservas.getReservas(Consola.leerTipoHabitacion());}
-		} while(opcion.equals(Opcion.SALIR));
+		
+		
+		} while(opcion!=Opcion.SALIR);
+		}}
 	
-    }
 
-	private static Opcion ejecutarOpcion(Opcion opcion) throws OperationNotSupportedException{
-		return opcion;
-	}
 
-	
-}
