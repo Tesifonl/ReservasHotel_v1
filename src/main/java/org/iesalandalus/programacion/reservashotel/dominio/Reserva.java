@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.reservashotel.dominio;
 
 
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -151,11 +152,12 @@ public class Reserva {
 	}
 	@Override
 	public String toString() {
+
 		return "Huesped: " + huesped.getNombre()+" "+huesped.getDni() + " Habitaci�n:"+ habitacion.getPlanta() + habitacion.getPuerta() + " - " +habitacion.getTipoHabitacion()
-				+ " Fecha Inicio Reserva: " + getFechaInicioReserva() + " Fecha Fin Reserva: " + getFechaFinReserva() + " Checkin: No registrado " + "Checkout: No registrado" + " Precio: " + (String.format("%.2f", precio).replace(".", ",")) + " Personas: " + numeroPersonas;
+				+ " Fecha Inicio Reserva: " + getFechaInicioReserva() + " Fecha Fin Reserva: " + getFechaFinReserva() + " Checkin: No registrado " + "Checkout: No registrado" + " Precio: " + getPrecio() + " Personas: " + numeroPersonas;
 	}
 	
-	
+
 	}
 
 

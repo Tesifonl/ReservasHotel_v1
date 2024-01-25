@@ -209,7 +209,8 @@ public class Reservas {
 		int posicion=0;
 		
 		for (int i=0;i<reservas.length;i++) 
-			if(reservas[i].getHabitacion().equals(habitacion) || reservas[i].getFechaInicioReserva().isAfter(LocalDate.now())) {
+			if(reservas[i].getHabitacion().equals(habitacion) && reservas[i].getFechaInicioReserva().isAfter(LocalDate.now())) {
+			System.out.println(reservas[i].getHuesped());
 			encontrado=true;
 			posicion=i;
 			nuevoArray[posicion]=reservas[posicion];
