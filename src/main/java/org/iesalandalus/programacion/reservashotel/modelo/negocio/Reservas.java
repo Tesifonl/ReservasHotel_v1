@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.reservashotel.modelo.negocio;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.naming.OperationNotSupportedException;
 
@@ -225,16 +226,16 @@ public class Reservas {
 	}else {throw new  NullPointerException("ERROR: No se pueden buscar reservas de una habitaci�n nula.");}
 	}
 
-	public void realizarCheckin(Reserva reserva, LocalDate fecha) {
+	public void realizarCheckin(Reserva reserva, LocalDateTime fecha) {
 		if(reserva==null || fecha==null) {
 			throw new  NullPointerException("ERROR: No se puede hacer checkin de una reserva nula o sin fecha");
-		}else {reserva.setCheckIn(fecha.atStartOfDay());}
+		}else {reserva.setCheckIn(fecha);}
 	}
 	
-	public void realizarCheckout(Reserva reserva, LocalDate fecha) {
+	public void realizarCheckout(Reserva reserva, LocalDateTime fecha) {
 		if(reserva==null || fecha==null) {
 			throw new  NullPointerException("ERROR: No se puede hacer checkin de una reserva nula o sin fecha");
-		}else {reserva.setCheckOut(fecha.atStartOfDay());}
+		}else {reserva.setCheckOut(fecha);}
 	}
 	
 	
