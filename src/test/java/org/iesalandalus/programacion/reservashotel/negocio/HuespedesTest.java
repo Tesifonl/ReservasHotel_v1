@@ -4,7 +4,8 @@ package org.iesalandalus.programacion.reservashotel.negocio;
 
 import org.junit.jupiter.api.Test;
 import org.iesalandalus.programacion.reservashotel.MainApp;
-import org.iesalandalus.programacion.reservashotel.dominio.Huesped;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
+import org.iesalandalus.programacion.reservashotel.modelo.negocio.Huespedes;
 import org.junit.jupiter.api.BeforeAll;
 
 import javax.naming.OperationNotSupportedException;

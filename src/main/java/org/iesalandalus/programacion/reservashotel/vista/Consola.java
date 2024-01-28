@@ -3,11 +3,11 @@ package org.iesalandalus.programacion.reservashotel.vista;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import org.iesalandalus.programacion.reservashotel.dominio.Habitacion;
-import org.iesalandalus.programacion.reservashotel.dominio.Huesped;
-import org.iesalandalus.programacion.reservashotel.dominio.Regimen;
-import org.iesalandalus.programacion.reservashotel.dominio.Reserva;
-import org.iesalandalus.programacion.reservashotel.dominio.TipoHabitacion;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Regimen;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Reserva;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 public class Consola {

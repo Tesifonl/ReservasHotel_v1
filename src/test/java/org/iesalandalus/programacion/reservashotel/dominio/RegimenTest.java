@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Regimen;
+
 public class RegimenTest {
     
     private static final String NOMBRE_NO_VALIDO = "El nombre del tipo de r�gimen no es v�lido.";

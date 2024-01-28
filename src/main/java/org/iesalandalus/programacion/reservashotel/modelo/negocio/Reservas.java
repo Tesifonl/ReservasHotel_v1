@@ -1,13 +1,13 @@
-package org.iesalandalus.programacion.reservashotel.negocio;
+package org.iesalandalus.programacion.reservashotel.modelo.negocio;
 
 import java.time.LocalDate;
 
 import javax.naming.OperationNotSupportedException;
 
-import org.iesalandalus.programacion.reservashotel.dominio.Habitacion;
-import org.iesalandalus.programacion.reservashotel.dominio.Huesped;
-import org.iesalandalus.programacion.reservashotel.dominio.Reserva;
-import org.iesalandalus.programacion.reservashotel.dominio.TipoHabitacion;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Reserva;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion;
 
 public class Reservas {
 	
@@ -224,6 +224,19 @@ public class Reservas {
 
 	}else {throw new  NullPointerException("ERROR: No se pueden buscar reservas de una habitaci�n nula.");}
 	}
-	
 
+	public void realizarCheckin(Reserva reserva, LocalDate fecha) {
+		if(reserva==null || fecha==null) {
+			throw new  NullPointerException("ERROR: No se puede hacer checkin de una reserva nula o sin fecha");
+		}else {reserva.setCheckIn(fecha.atStartOfDay());}
+	}
+	
+	public void realizarCheckout(Reserva reserva, LocalDate fecha) {
+		if(reserva==null || fecha==null) {
+			throw new  NullPointerException("ERROR: No se puede hacer checkin de una reserva nula o sin fecha");
+		}else {reserva.setCheckOut(fecha.atStartOfDay());}
+	}
+	
+	
 }
+
