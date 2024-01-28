@@ -15,7 +15,9 @@ public enum Opcion {
 	INSERTAR_RESERVA ("9.-Insertar reserva"),
 	ANULAR_RESERVA ("10º-Anular reserva"),
 	MOSTRAR_RESERVAS ("11º-Mostrar reserva"),
-	CONSULTAR_DISPONIBILIDAD ("12º-Consultar disponibilidad");
+	CONSULTAR_DISPONIBILIDAD ("12º-Consultar disponibilidad"),
+	REALIZAR_CHECKIN("13º-Realizar checkin"),
+	REALIZAR_CHECKOUT("14º-Realizar checkout");
 	
 	private String mensajeAMostrar;
 	

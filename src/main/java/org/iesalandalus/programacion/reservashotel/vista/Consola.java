@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.reservashotel.vista;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
@@ -34,6 +35,8 @@ public class Consola {
 		System.out.println ("10º-Anular reserva");
 		System.out.println ("11º-Mostrar reserva");
 		System.out.println ("12º-Consultar disponibilidad");
+		System.out.println ("13º-Realizar checkin");
+		System.out.println ("14º-Realizar checkout");
 		System.out.println("");
 		System.out.println("0º.-Salir");
 		System.out.println("");
@@ -88,6 +91,12 @@ public class Consola {
 				break;
 			case 12:
 				opcionElegida=Opcion.CONSULTAR_DISPONIBILIDAD;
+				break;
+			case 13:
+				opcionElegida=Opcion.REALIZAR_CHECKIN;
+				break;
+			case 14:
+				opcionElegida=Opcion.REALIZAR_CHECKOUT;
 				break;
 			case 0:
 				opcionElegida=Opcion.SALIR;
@@ -149,16 +158,31 @@ public class Consola {
 	public static LocalDate leerFecha(String mensaje ) {
         String pattern = "yyyy-MM-dd";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-
-        try {
-           
-            LocalDate fechaLocalDate = LocalDate.parse(mensaje, formatter);
+        LocalDate fechaLocalDate=null;
+        String fecha;
+        
+       do { 
+            System.out.println("Introduce una fecha en formato yyyy-MM-dd");
+            fecha=Entrada.cadena();
+            fechaLocalDate = LocalDate.parse(fecha, formatter);
             return fechaLocalDate;
             
-        	} catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+
+        } while (fechaLocalDate==null);
+	}
+	
+	public static LocalDateTime leerFechaHora(String mensaje ) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime fechaLocalDateTime=null;
+        String fecha;
+        do {
+            System.out.println("Introduce una fecha y hora en formato yyyy-MM-dd HH:mm:ss");
+            fecha=Entrada.cadena();
+            fechaLocalDateTime = LocalDateTime.parse(fecha, formatter);
+            return fechaLocalDateTime;
+            
+        	} while (fechaLocalDateTime==null);
+        
 	}
 	
 	public static Habitacion leerHabitacion( ) {
