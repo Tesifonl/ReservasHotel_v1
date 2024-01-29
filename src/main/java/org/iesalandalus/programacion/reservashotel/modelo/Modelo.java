@@ -35,9 +35,10 @@ public class Modelo {
 	}
 	
 	public void insertar(Huesped huesped) throws OperationNotSupportedException {
-		if (huesped != null) {
+		try {
 			huespedes.insertar(huesped);
-		}
+			}catch (OperationNotSupportedException ex) {
+			System.out.println(ex.getMessage());}
 	}
 	
 	public Huesped buscar(Huesped huesped) {
@@ -45,9 +46,10 @@ public class Modelo {
 	}
 	
 	public void borrar (Huesped huesped) throws OperationNotSupportedException {
-		
-		if (huesped != null) {
-			huespedes.borrar(huesped);}
+		try {
+			huespedes.borrar(huesped);
+			}catch (OperationNotSupportedException ex) {
+			System.out.println(ex.getMessage());}
 		}
 	
 	public Huesped [] getHuespedes(){
@@ -63,9 +65,10 @@ public class Modelo {
 	}
 	
 	public void insertar(Habitacion habitacion) throws OperationNotSupportedException {
-		if (habitacion != null) {
+		try {
 			habitaciones.insertar(habitacion);
-		}
+			}catch (OperationNotSupportedException ex) {
+			System.out.println(ex.getMessage());}
 	}
 	
 	public Habitacion buscar(Habitacion habitacion) {
@@ -74,8 +77,10 @@ public class Modelo {
 	
 	public void borrar (Habitacion habitacion) throws OperationNotSupportedException {
 		
-		if (habitacion != null) {
-			habitaciones.borrar(habitacion);}
+		try {
+			habitaciones.borrar(habitacion);
+			}catch (OperationNotSupportedException ex) {
+				System.out.println(ex.getMessage());}
 		
 	}
 	
@@ -104,9 +109,10 @@ public class Modelo {
 	}
 	
 	public void insertar(Reserva reserva) throws OperationNotSupportedException {
-		if (reserva != null) {
+		try {
 			reservas.insertar(reserva);
-		}
+			}catch (OperationNotSupportedException ex) {
+			System.out.println(ex.getMessage());}
 	}
 	
 	public Reserva buscar(Reserva reserva) {
@@ -115,9 +121,10 @@ public class Modelo {
 	
 	public void borrar (Reserva reserva) throws OperationNotSupportedException {
 		
-		if (reserva != null) {
-			reservas.borrar(reserva);}
-		
+		try {
+			reservas.borrar(reserva);
+			}catch (OperationNotSupportedException ex) {
+			System.out.println(ex.getMessage());}	
 	}
 	
 	public Reserva [] getReservas(){
@@ -156,15 +163,15 @@ public class Modelo {
 		return nuevoArray2;
 	}
 	
-	public void realizarCheckin(Reserva reserva, LocalDateTime fecha) {
+	public void realizarCheckin(Reserva reserva, LocalDateTime fecha) throws OperationNotSupportedException {
 		if(reserva==null || fecha==null) {
-			throw new  NullPointerException("ERROR: No se puede hacer checkin de una reserva nula o sin fecha");
+			throw new  OperationNotSupportedException("ERROR: No se puede hacer checkin de una reserva nula o sin fecha");
 		}else {reserva.setCheckIn(fecha);}
 	}
 	
-	public void realizarCheckout(Reserva reserva, LocalDateTime fecha) {
+	public void realizarCheckout(Reserva reserva, LocalDateTime fecha) throws OperationNotSupportedException {
 		if(reserva==null || fecha==null) {
-			throw new  NullPointerException("ERROR: No se puede hacer checkin de una reserva nula o sin fecha");
+			throw new  OperationNotSupportedException("ERROR: No se puede hacer checkin de una reserva nula o sin fecha");
 		}else {reserva.setCheckOut(fecha);}
 	}
 }
