@@ -6,9 +6,11 @@ import javax.naming.OperationNotSupportedException;
 
 
 import org.iesalandalus.programacion.reservashotel.controlador.Controlador;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Reserva;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion;
+import org.iesalandalus.programacion.utilidades.Entrada;
 
 public class Vista {
 	
@@ -173,26 +175,64 @@ public class Vista {
 	private void anularReserva() {
 		
 		int contador=0;
-		Reserva [] nuevoArray=null;
+		Reserva [] nuevoArray1=null;
+		Reserva [] nuevoArray2=new Reserva[getReservasAnulables (controlador.getReservas(Consola.getHuespedPorDni())).length];
 		
-		nuevoArray=getReservasAnulables (controlador.getReservas(Consola.getHuespedPorDni()));
+		nuevoArray1=getReservasAnulables (controlador.getReservas(Consola.getHuespedPorDni()));
 		
-		for(int i=0;i<nuevoArray.length;i++) {
-			if(nuevoArray[i]!=null)
+		for(int i=0;i<nuevoArray1.length;i++) {
+			if(nuevoArray1[i]!=null) {contador++;
+				nuevoArray2[contador]=nuevoArray1[i];
+				}else{System.out.println("vacio");}
 		}
-		
-		/*voy por aqui*/
-		
+	
+		switch (contador){
+			
+			case 0:
+				System.out.println("No existen reservas");
+				break;
+				
+			case 1:
+				for(int i=0;i<nuevoArray2.length;i++) {nuevoArray2[i]=null;}
+				break;
+				
+			case 2,3,4,5,6,7,8:
+				
+				int reservaAborrar=0;
+				System.out.println("Elige cual de las reservas siguientes quieres borrar borrar");
+				int contadornuevo=0;
+				for(int i=0;i<nuevoArray2.length;i++) {
+					contador++;
+					System.out.println("Reserva numero"+contadornuevo+nuevoArray2[i]);}
+				reservaAborrar=Entrada.entero();
+				nuevoArray2[reservaAborrar]=null;
+				break;
+				
+			default:
+				throw new IllegalArgumentException("el numero es incorrecto");
+		}}
+	
+	
+	private void mostrarReservas() {
+		controlador.getReservas();
 	}
 	
-	private void mostrarReservas() {}
+	private Habitacion consultarDisponiblidad (TipoHabitacion tipoHabitacion, LocalDate fechaInicioReserva, LocalDate fechaFinReserva){
+		Reserva [] nuevoArray=controlador.getReservas(tipoHabitacion);
+		boolean habitacionesLibres=false;
+		Habitacion habitacionDisponible=null;
+		
+		for (int i=0;i<nuevoArray.length;i++) {
+			
+			if(nuevoArray[i].getFechaFinReserva().isBefore(fechaInicioReserva)
+					&& nuevoArray[i].getFechaFinReserva().isBefore(fechaFinReserva))
+			{habitacionesLibres=true; habitacionDisponible=nuevoArray[i].getHabitacion();
+			}else {System.out.println("No libre");}
+			}
+		
+		if (habitacionesLibres=true){return habitacionDisponible; }else {return null;}
+		}
 	
-	private Habitacion (TipoHabitacion tipoHabitacion, LocalDate fechaInicioReserva, LocalDate fechaFinReserva){
-		return.tipoHabitacion/*mal*/}
-	
-	private int getNumElementosNonulos(Reserva [] reservas) {
-		return.int/*mal*/
-	}
 	
 	private void realizarChechin() {}
 	
