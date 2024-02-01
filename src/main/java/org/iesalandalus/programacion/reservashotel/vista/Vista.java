@@ -172,11 +172,14 @@ public class Vista {
 	
 	private void anularReserva() {
 		
-		int tamano=0;
+		int contador=0;
 		Reserva [] nuevoArray=null;
 		
 		nuevoArray=getReservasAnulables (controlador.getReservas(Consola.getHuespedPorDni()));
 		
+		for(int i=0;i<nuevoArray.length;i++) {
+			if(nuevoArray[i]!=null)
+		}
 		
 		/*voy por aqui*/
 		
