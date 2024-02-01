@@ -20,7 +20,7 @@ public class Controlador {
 	if (modelo!=null && vista!=null) {
 		this.modelo = modelo;
 		this.vista = vista;
-		vista.setControlador();
+		vista.setControlador(new Controlador(modelo,vista));
 		}else {throw new NullPointerException("ERROR: No es posible por no llegar un obejto");}
 	}
 	public void comenzar() {
