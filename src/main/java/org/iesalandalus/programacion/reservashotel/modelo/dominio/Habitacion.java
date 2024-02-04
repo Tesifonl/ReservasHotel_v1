@@ -57,6 +57,9 @@ public class Habitacion {
 	}
 
 	public void setIdentificador(String identificador) {
+		if (identificador == null) {
+			throw new NullPointerException("Error: El identificador no puede ser nulo.");
+		}
 		this.identificador = identificador;
 	}
 

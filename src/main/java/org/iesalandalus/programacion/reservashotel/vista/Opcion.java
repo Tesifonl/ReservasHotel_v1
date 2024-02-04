@@ -30,7 +30,7 @@ public enum Opcion {
 	
     @Override
     public String toString() {
-        return mensajeAMostrar;
+        return (this.ordinal() + 1) + ".-" + mensajeAMostrar;
     }
 	
 

@@ -19,7 +19,7 @@ public enum Regimen {
 	
     @Override
     public String toString() {
-        return cadenaAMostrar;
+        return (this.ordinal() + 1) + ".-"+ cadenaAMostrar;
     }
 	
 }

@@ -110,40 +110,89 @@ public class Vista {
 	
 	
 	private void insertarHuesped() throws OperationNotSupportedException {
-		controlador.insertar(Consola.leerHuesped());
+		try {
+			controlador.insertar(Consola.leerHuesped());
+		}
+		catch(OperationNotSupportedException e){
+			System.out.println(e.getMessage());
+		}
+		catch(NullPointerException e){
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	private void buscarHuesped() {
-		controlador.buscar(Consola.getHuespedPorDni());
+		try {
+			controlador.buscar(Consola.getHuespedPorDni());
+		}
+		catch(NullPointerException e){
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	private void borrarHuesped() {
-		controlador.borrar(Consola.getHuespedPorDni());
+		try {
+			controlador.borrar(Consola.getHuespedPorDni());
+		}
+		catch(NullPointerException e){
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	private void mostrarHuespedes() {
 		controlador.getHuespedes();
+		
+		/*pdte*/
 	}
 	
 	private void insertarHabitacion() {
-		controlador.insertar(Consola.leerHabitacion());
+		try {
+			controlador.insertar(Consola.leerHabitacion());
+		}
+		catch(OperationNotSupportedException e){
+			System.out.println(e.getMessage());
+		}
+		catch(NullPointerException e){
+			System.out.println(e.getMessage());}
+		}
 	}
 	
 	private void buscarHabitacion() {
-		controlador.buscar(Consola.leerHabitacionPorIdentificador());
+		try {	
+			controlador.buscar(Consola.leerHabitacionPorIdentificador());
+		}
+		catch(NullPointerException e){
+			System.out.println(e.getMessage());}
 	}
 	
 	private void borrarHabitacion() {
-		controlador.borrar(Consola.leerHabitacionPorIdentificador());
+		try {
+			controlador.borrar(Consola.leerHabitacionPorIdentificador());
+		}
+		catch(OperationNotSupportedException e){
+			System.out.println(e.getMessage());
+		}
+		catch(NullPointerException e){
+			System.out.println(e.getMessage());}
 	}
+	
 	
 	private void mostrarHabitaciones() {
 		controlador.getHabitaciones();
+		/*pdte*/
 	}
 	
 	private void insertarReserva() {
-		controlador.insertar(Consola.leerReserva());
+		try {
+			controlador.insertar(Consola.leerReserva());
+		}
+		catch(OperationNotSupportedException e){
+			System.out.println(e.getMessage());
+		}
+		catch(NullPointerException e){
+			System.out.println(e.getMessage());}
 	}
+	
 	
 	private void listarReservas(Huesped huesped) {
 		controlador.getReservas(huesped);
@@ -157,17 +206,17 @@ public class Vista {
 		
 		boolean reservasAnulables=false;
 		int contador=0;
-		Reserva [] nuevoArray=null;
+		Reserva [] nuevoArray=new Reserva[reservasAAnular.length];
 		
 		 for (int i=0; i<reservasAAnular.length;i++) {
-			 if (reservasAAnular[i].getFechaInicioReserva().isBefore(LocalDate.now())) {
+			 if (reservasAAnular[i].getFechaInicioReserva().isAfter(LocalDate.now())) {
 				 reservasAnulables=true;
+				 nuevoArray[contador]=reservasAAnular[i];
 				 contador++;
-				 nuevoArray=new Reserva[contador];
-			 }else { System.out.println("No existen reservas");}
+			   }
 		 }
 		 
-		 if (reservasAnulables=true) {return nuevoArray;
+		 if (reservasAnulables==true) {return nuevoArray;
 		 }else {return null;}
 		 
 	}
@@ -234,8 +283,20 @@ public class Vista {
 		}
 	
 	
-	private void realizarChechin() {}
+	private void realizarChechin() {
+		Reserva [] nuevoArray= controlador.getReservas(Consola.leerHuesped());
+		boolean reservasAcheckin=false;
+		
+		/*for (int i=0;i<nuevoArray.length;i++) {
+			if (nuevoArray[i].getFechaInicioReserva()) {}else {}
+		}*/
+			
+			
+		controlador.realizarCheckin(null, null);;
+	}
 	
-	private void realizarChechout() {}
+	private void realizarChechout() {
+		controlador.realizarCheckout(null, null);
+	}
 	
 }

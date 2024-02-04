@@ -3,6 +3,7 @@ package org.iesalandalus.programacion.reservashotel.vista;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
@@ -19,27 +20,13 @@ public class Consola {
 	
 	public static void mostrarMenu() {
 		
-        System.out.println("--------------------------------------------------------------------------------------");
-        System.out.println("Opciones: ");
-        System.out.println("--------------------------------------------------------------------------------------");
-        System.out.println("");
-		System.out.println ("1º.-Insertar huesped");
-		System.out.println ("2º.-Buscar huesped");
-		System.out.println ("3º.-Borrar huesped");
-		System.out.println ("4º.-Mostrar huespedes");
-		System.out.println ("5º.-Insertar habitacion");
-		System.out.println ("6º.-Buscar habitacion");
-		System.out.println("7º.-Borrar habitacion");
-		System.out.println("8.-Mostrar habitaciones");
-		System.out.println ("9.-Insertar reserva");
-		System.out.println ("10º-Anular reserva");
-		System.out.println ("11º-Mostrar reserva");
-		System.out.println ("12º-Consultar disponibilidad");
-		System.out.println ("13º-Realizar checkin");
-		System.out.println ("14º-Realizar checkout");
-		System.out.println("");
-		System.out.println("0º.-Salir");
-		System.out.println("");
+	      System.out.println("--------------------------------------------------------------------------------------");
+	      System.out.println("Opciones: ");
+	      System.out.println("--------------------------------------------------------------------------------------");
+	      System.out.println("");
+	      for (int i = 0; i < Opcion.values().length; i++) {
+	        	System.out.println(Opcion.values()[i].toString());
+	       }
 		
 	}
 	
@@ -50,7 +37,7 @@ public class Consola {
 		do {
 			System.out.println("Introduzca la opcion a elegir");
 			opciones=Entrada.entero();
-		}while (opciones<0 || opciones>12);
+		}while (opciones<0 || opciones>=Opcion.values().length);
 		
 		
 		switch (opciones)
@@ -171,18 +158,18 @@ public class Consola {
         } while (fechaLocalDate==null);
 	}
 	
-	public static LocalDateTime leerFechaHora(String mensaje ) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime fechaLocalDateTime=null;
-        String fecha;
-        do {
-            System.out.println("Introduce una fecha y hora en formato yyyy-MM-dd HH:mm:ss");
-            fecha=Entrada.cadena();
-            fechaLocalDateTime = LocalDateTime.parse(fecha, formatter);
-            return fechaLocalDateTime;
-            
-        	} while (fechaLocalDateTime==null);
-        
+	public static LocalDate leerFechaHora(String mensaje ) {
+        String pattern = "yyyy-MM-dd";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
+        try {
+           
+            LocalDate fechaLocalDate = LocalDate.parse(mensaje, formatter);
+            return fechaLocalDate;
+        } catch (DateTimeParseException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
 	}
 	
 	public static Habitacion leerHabitacion( ) {
@@ -194,8 +181,7 @@ public class Consola {
 			int puerta=Entrada.entero();
 			System.out.println("Introduce un precio: ");
 			double precio=Entrada.real();
-			System.out.println("Introduce un identificador: ");
-			String identificador=Entrada.cadena();
+			String identificador=String.valueOf(planta)+String.valueOf(puerta);
 			System.out.println("Introduce una  tipo de habitacion: ");
 			TipoHabitacion tipoHabitacion=TipoHabitacion.valueOf(Entrada.cadena());
 

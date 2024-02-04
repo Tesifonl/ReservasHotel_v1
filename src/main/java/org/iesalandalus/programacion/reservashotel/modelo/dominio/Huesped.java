@@ -21,14 +21,16 @@ public class Huesped {
 	
 	private String formateaNombre(String nombre) {
 		
-		String[] formatoNombre=nombre.split(" ");
+		String[] formatoNombre=nombre.split("\\s ");
 		nombre="";
 		
 		for (int i=0;i<formatoNombre.length;i++) 
-		if(formatoNombre[i].equals("")) {formatoNombre[i].trim();}	
+		if(formatoNombre[i].equals("")) {
+			formatoNombre[i].trim();}	
 		else {formatoNombre[i]=formatoNombre[i].substring(0, 1).toUpperCase()+formatoNombre[i].substring(1).toLowerCase();
 			if (i<formatoNombre.length-1) {nombre=nombre+formatoNombre[i]+ " ";}
-			else {nombre=nombre+formatoNombre[i];}}
+			else {nombre=nombre+formatoNombre[i];}
+			}
 		return nombre;}
 	
 	private boolean comprobarLetraDni(String dni) {
@@ -52,15 +54,12 @@ public class Huesped {
 	}
 
 	public void setNombre(String nombre) {
-		if (nombre == null) { throw new NullPointerException("ERROR: El nombre de un hu�sped no puede ser nulo.");}
-		if (nombre.trim().equals("")) { throw new IllegalArgumentException("ERROR: El nombre de un hu�sped no puede estar vac�o.");}
+		if (nombre == null) { 
+			throw new NullPointerException("ERROR: El nombre de un hu�sped no puede ser nulo.");}
+		if (nombre.trim().equals("")) {
+			throw new IllegalArgumentException("ERROR: El nombre de un hu�sped no puede estar vac�o.");}
 		
-		for (int i=0; i<nombre.length()-1;i++)
-				if ((nombre.charAt(i)>='A' && nombre.charAt(i)<='Z')||nombre.charAt(i)==32 ||
-					(nombre.charAt(i)>='a' && nombre.charAt(i)<='z')||
-					(nombre.charAt(i)>='á' && nombre.charAt(i)<='ú')||
-					(nombre.charAt(i)>=' ')){this.nombre = formateaNombre(nombre);}
-					else {throw new IllegalArgumentException("ERROR: El nombre no tiene un formato volido.");}
+		this.nombre = formateaNombre(nombre);
 		}		
 	
 
@@ -69,9 +68,12 @@ public class Huesped {
 	}
 
 	public void setTelefono(String telefono) {
-		if (telefono == null) { throw new NullPointerException("ERROR: El tel�fono de un hu�sped no puede ser nulo.");}
-		else if (telefono.trim().equals("")) { throw new IllegalArgumentException("ERROR: El tel�fono del hu�sped no tiene un formato v�lido.");}
-		else if (!telefono.matches(ER_TELEFONO)) { throw new IllegalArgumentException("ERROR: El tel�fono del hu�sped no tiene un formato v�lido.");}
+		if (telefono == null) { 
+			throw new NullPointerException("ERROR: El tel�fono de un hu�sped no puede ser nulo.");}
+		else if (telefono.trim().equals("")) { 
+			throw new IllegalArgumentException("ERROR: El tel�fono del hu�sped no tiene un formato v�lido.");}
+		else if (!telefono.matches(ER_TELEFONO)) {
+			throw new IllegalArgumentException("ERROR: El tel�fono del hu�sped no tiene un formato v�lido.");}
 		else {this.telefono = telefono;}
 	}
 
@@ -80,9 +82,12 @@ public class Huesped {
 	}
 
 	public void setCorreo(String correo) {
-		if (correo==null) {throw new NullPointerException("ERROR: El correo de un huesped no puede ser nulo.");}
-		else if (correo.trim().equals("")) { throw new IllegalArgumentException("ERROR: El correo del hu�sped no tiene un formato v�lido.");}
-		else if (!correo.trim().matches(ER_CORREO)) { throw new IllegalArgumentException("ERROR: El correo del hu�sped no tiene un formato v�lido.");}
+		if (correo==null) {
+			throw new NullPointerException("ERROR: El correo de un huesped no puede ser nulo.");}
+		else if (correo.trim().equals("")) { 
+			throw new IllegalArgumentException("ERROR: El correo del hu�sped no tiene un formato v�lido.");}
+		else if (!correo.trim().matches(ER_CORREO)) {
+			throw new IllegalArgumentException("ERROR: El correo del hu�sped no tiene un formato v�lido.");}
 		else {this.correo = correo;}
 	}
 
@@ -91,10 +96,14 @@ public class Huesped {
 	}
 
 	public void setDni(String dni) {
-		if (dni== null) { throw new NullPointerException("ERROR: El dni de un hu�sped no puede ser nulo.");}
-		else if (!dni.trim().matches(ER_DNI)) { throw new IllegalArgumentException("ERROR: El dni del hu�sped no tiene un formato v�lido.");}
-		else if (comprobarLetraDni(dni)==true){this.dni = dni;}
-		else {throw new IllegalArgumentException("ERROR: La letra del dni del hu�sped no es correcta.");} 
+		if (dni== null) {
+			throw new NullPointerException("ERROR: El dni de un hu�sped no puede ser nulo.");}
+		else if (!dni.trim().matches(ER_DNI)) {
+			throw new IllegalArgumentException("ERROR: El dni del hu�sped no tiene un formato v�lido.");}
+		else if (comprobarLetraDni(dni)==true){
+			this.dni = dni;}
+		else {
+			throw new IllegalArgumentException("ERROR: La letra del dni del hu�sped no es correcta.");} 
 	}
 
 	public LocalDate getFechaNacimiento() {
@@ -102,8 +111,12 @@ public class Huesped {
 	}
 
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
-		if (fechaNacimiento==null) {throw new NullPointerException("ERROR: La fecha de nacimiento de un hu�sped no puede ser nula.");}
-		else  {this.fechaNacimiento=fechaNacimiento;}}
+		if (fechaNacimiento==null) {
+			throw new NullPointerException("ERROR: La fecha de nacimiento de un hu�sped no puede ser nula.");}
+		else if (fechaNacimiento.isAfter(LocalDate.now())) {
+			throw new NullPointerException("ERROR: La fecha de nacimiento hu�sped no puede posterior a la de hoy.");
+		}else {this.fechaNacimiento=fechaNacimiento;}
+	}
 
 				
 	

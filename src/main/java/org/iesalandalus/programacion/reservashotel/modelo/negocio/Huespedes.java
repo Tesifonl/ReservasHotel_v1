@@ -9,12 +9,13 @@ public class Huespedes {
 	
 	private int capacidad;
 	private int tamano;
-	private static Huesped [] huespedes;
+	private static Huesped [] coleccionHuespedes;
 	
 	
 	public Huespedes(int capacidad) {
 		if(capacidad>0) {
-		huespedes=new Huesped [capacidad];
+			this.capacidad=capacidad;
+			coleccionHuespedes=new Huesped [capacidad];
 		}else {throw new IllegalArgumentException("ERROR: La capacidad debe ser mayor que cero.");}
 	}
 	
@@ -27,11 +28,13 @@ public class Huespedes {
 	
 	
 	private Huesped [] copiaProfundaHuespedes() {
-		Huesped [] copiahuespedes=new Huesped [huespedes.length];
+		Huesped [] copiahuespedes=new Huesped [coleccionHuespedes.length];
 		
-		for (int i=0;i<huespedes.length;i++) {
-		if(huespedes[i]!=null) {copiahuespedes[i]=new Huesped(huespedes[i]);}
-		else {copiahuespedes[i]=null;}
+		for (int i=0;i<coleccionHuespedes.length;i++) {
+			if(coleccionHuespedes[i]!=null) {
+				copiahuespedes[i]=new Huesped(coleccionHuespedes[i]);}
+			else {
+				copiahuespedes[i]=null;}
 		}
 		return copiahuespedes;
 	}
@@ -39,17 +42,15 @@ public class Huespedes {
 	public int getTamano () {
 		int tamano=0;
 		
-		for (int i=0;i<huespedes.length;i++) {
-		if(huespedes[i]!=null) {tamano++;}
-		else {System.out.println("Nulo");};
-		}
-		System.out.println(tamano);
+		for (int i=0;i<coleccionHuespedes.length;i++) {
+			if(coleccionHuespedes[i]!=null) {
+				tamano++;}}
 		return tamano;
 	}
 	
 	public int getCapacidad () {
-		System.out.println(huespedes.length);
-			return huespedes.length;
+		System.out.println(coleccionHuespedes.length);
+			return coleccionHuespedes.length;
 	}
 	
 	/*huespedes[i] != null && huespedes[i].equals(objetoComparado)*/
@@ -58,33 +59,33 @@ public class Huespedes {
 		boolean noEncontrado=false;
 		
 		if(huesped!=null) {
-			for (int i=0;i<huespedes.length;i++) 
-			if(huespedes[i] != null && huespedes[i].equals(huesped)) {throw new OperationNotSupportedException("ERROR: Ya existe un hu�sped con ese dni.");}
-			else {noEncontrado=true;}
+			for (int i=0;i<coleccionHuespedes.length;i++) 
+				if(coleccionHuespedes[i] != null && coleccionHuespedes[i].equals(huesped)) {
+					throw new OperationNotSupportedException("ERROR: Ya existe un hu�sped con ese dni.");}
+				else {
+					noEncontrado=true;}
 					
-			if(noEncontrado==true && getTamano()<getCapacidad()) {huespedes[getTamano()]=huesped;}
-			else {throw new OperationNotSupportedException("ERROR: No se aceptan m�s hu�spedes.");}
+			if(noEncontrado==true && getTamano()<getCapacidad()) {
+				coleccionHuespedes[getTamano()]=huesped;}
+			else {
+				throw new OperationNotSupportedException("ERROR: No se aceptan m�s hu�spedes.");}
 			
 		}else {throw new NullPointerException("ERROR: No se puede insertar un hu�sped nulo.");}
 	}
 	
 	public int buscarIndice (Huesped huesped) {
 		if(huesped!=null) {
-			int contador=0;
 			int posicion=0;
 	
-			for (int i=0;i<huespedes.length;i++) {
-				contador=i;
-				posicion=contador;
-				
-				if (huespedes[i] != null && huespedes[i].equals(huesped)) {posicion=contador;}
-				{posicion=0;}
+			for (int i=0;i<coleccionHuespedes.length;i++) {	
+				if (coleccionHuespedes[i] != null && coleccionHuespedes[i].equals(huesped)) {
+					posicion=i;}
 			}
 			return posicion;		
-		}else {throw new NullPointerException("ERROR:");}
+		}else {throw new NullPointerException("ERROR: No se puede buscar un huesped nulo");}
 	}
 	
-	public boolean tamañoSuperado(int indice) {
+	public boolean tamanoSuperado(int indice) {
 		boolean superado=false;
 		
 		if (indice> getTamano()) {superado=true;}
@@ -107,12 +108,13 @@ public class Huespedes {
 		if(huesped!=null) {
 			boolean encontrado=false;
 			
-			for (int i=0;i<huespedes.length;i++) {
-			if(huespedes[i] != null && huespedes[i].equals(huesped)) {encontrado=true;}
-			else {System.out.println("No encontrado");}}
+			for (int i=0;i<coleccionHuespedes.length;i++) {
+				if(coleccionHuespedes[i] != null && coleccionHuespedes[i].equals(huesped)) {
+					encontrado=true;}
+			}
 			
 			if (encontrado==true) {return new Huesped(huesped);}else {return null;}
-		}else {throw new NullPointerException("ERROR:");}
+		}else {throw new NullPointerException("ERROR: No se puede buscar un huesped nulo");}
 	}
 		
 	public void borrar (Huesped huesped) throws OperationNotSupportedException  {
@@ -121,15 +123,16 @@ public class Huespedes {
 		if(huesped!=null) {
 		int contador=0;
 		int indice=0;
-			for (int i=0;i<huespedes.length;i++) {
+			for (int i=0;i<coleccionHuespedes.length;i++) {
 				contador=i;
-				if(huespedes[i] != null && huespedes[i].equals(huesped)) {
-				encontrado=true;indice=contador;}
-				else {System.out.println("No encontrado");}}	
+				if(coleccionHuespedes[i] != null && coleccionHuespedes[i].equals(huesped)) {
+				encontrado=true;indice=contador;}}	
 			
-			if (encontrado==true) {huespedes[indice] = null;
-			desplazarUnaPosicionHaciaIzquierda(indice);}
-			else {throw new OperationNotSupportedException("ERROR: No existe ning�n hu�sped como el indicado.");}
+			if (encontrado==true) {
+				coleccionHuespedes[indice] = null;
+				desplazarUnaPosicionHaciaIzquierda(indice);}
+			else {
+				throw new OperationNotSupportedException("ERROR: No existe ning�n hu�sped como el indicado.");}
 		
 		}else {throw new NullPointerException("ERROR: No se puede borrar un hu�sped nulo.");}
 	}
@@ -137,9 +140,9 @@ public class Huespedes {
 
 	public void desplazarUnaPosicionHaciaIzquierda(int indice) {
 		
-		for (int i=indice;i<huespedes.length-1;i++) {
-			huespedes[i]=huespedes[i+1];
-			huespedes [huespedes.length-1]=null;}
+		for (int i=indice;i<coleccionHuespedes.length-1;i++) {
+			coleccionHuespedes[i]=coleccionHuespedes[i+1];
+			coleccionHuespedes [coleccionHuespedes.length-1]=null;}
 			
 	}
 	
