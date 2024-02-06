@@ -140,10 +140,21 @@ public class Vista {
 	}
 	
 	private void mostrarHuespedes() {
-		controlador.getHuespedes();
+		int contador=0;
 		
-		/*pdte*/
-	}
+		for (int i=0;i<controlador.getHuespedes().length;i++) {
+			if (controlador.getHuespedes()[i]!=null) {
+				contador++;}
+			}
+		if(contador>0) {
+			for (int i=0;i<controlador.getHuespedes().length;i++)
+				System.out.println(controlador.getHuespedes()[i]);
+		}
+		else {
+			System.out.println("No hay ningun huesped");
+		} 
+		}
+			
 	
 	private void insertarHabitacion() {
 		try {
@@ -178,8 +189,20 @@ public class Vista {
 	
 	
 	private void mostrarHabitaciones() {
-		controlador.getHabitaciones();
-		/*pdte*/
+	
+		int contador=0;
+		
+		for (int i=0;i<controlador.getHabitaciones().length;i++) {
+			if (controlador.getHabitaciones()[i]!=null) {
+				contador++;}
+			}
+		if(contador>0) {
+			for (int i=0;i<controlador.getHabitaciones().length;i++)
+				System.out.println(controlador.getHabitaciones()[i]);
+		}
+		else {
+			System.out.println("No hay ninguna habitacion");
+		} 
 	}
 	
 	private void insertarReserva() {
@@ -195,24 +218,41 @@ public class Vista {
 	
 	
 	private void listarReservas(Huesped huesped) {
-		controlador.getReservas(huesped);
+		Reserva[] nuevoArray = controlador.getReservas(huesped);
+		
+		if (nuevoArray!=null) {
+			for (int i=0;i<nuevoArray.length;i++) {
+				System.out.println(nuevoArray[i]);
+			}
+		}else {
+			System.out.println("No existen reservas para este huesped.");
+		}
 	}
 	
 	private void listarReservas (TipoHabitacion tipoHabitacion) {
-		controlador.getReservas(tipoHabitacion);
+		
+		Reserva[] nuevoArray = controlador.getReservas(tipoHabitacion);
+		
+		if (nuevoArray!=null) {
+			for (int i=0;i<nuevoArray.length;i++) {
+				System.out.println(nuevoArray[i]);
+			}
+		}else {
+			System.out.println("No existen reservas para este tipo de habitacion.");
+		}
 	}
 
 	private Reserva [] getReservasAnulables (Reserva [] reservasAAnular) {
 		
 		boolean reservasAnulables=false;
-		int contador=0;
+		int posicion=0;
 		Reserva [] nuevoArray=new Reserva[reservasAAnular.length];
 		
 		 for (int i=0; i<reservasAAnular.length;i++) {
 			 if (reservasAAnular[i].getFechaInicioReserva().isAfter(LocalDate.now())) {
 				 reservasAnulables=true;
-				 nuevoArray[contador]=reservasAAnular[i];
-				 contador++;
+				 nuevoArray[posicion]=reservasAAnular[i];
+				 posicion++;
 			   }
 		 }
 		 
@@ -222,64 +262,58 @@ public class Vista {
 	}
 	
 	private void anularReserva() {
+		Reserva [] nuevoArray1=controlador.getReservas(Consola.getHuespedPorDni());
 		
-		int contador=0;
-		Reserva [] nuevoArray1=null;
-		Reserva [] nuevoArray2=new Reserva[getReservasAnulables (controlador.getReservas(Consola.getHuespedPorDni())).length];
-		
-		nuevoArray1=getReservasAnulables (controlador.getReservas(Consola.getHuespedPorDni()));
-		
-		for(int i=0;i<nuevoArray1.length;i++) {
-			if(nuevoArray1[i]!=null) {contador++;
-				nuevoArray2[contador]=nuevoArray1[i];
-				}else{System.out.println("vacio");}
-		}
-	
-		switch (contador){
+		if (nuevoArray1.length > 0) {	
+			Reserva [] nuevoArray2=getReservasAnulables(nuevoArray1);
 			
-			case 0:
-				System.out.println("No existen reservas");
-				break;
-				
-			case 1:
-				for(int i=0;i<nuevoArray2.length;i++) {nuevoArray2[i]=null;}
-				break;
-				
-			case 2,3,4,5,6,7,8:
-				
-				int reservaAborrar=0;
-				System.out.println("Elige cual de las reservas siguientes quieres borrar borrar");
-				int contadornuevo=0;
-				for(int i=0;i<nuevoArray2.length;i++) {
-					contador++;
-					System.out.println("Reserva numero"+contadornuevo+nuevoArray2[i]);}
-				reservaAborrar=Entrada.entero();
-				nuevoArray2[reservaAborrar]=null;
-				break;
-				
-			default:
-				throw new IllegalArgumentException("el numero es incorrecto");
-		}}
+			if (nuevoArray2.length > 0) {
+				for (int i=0;i<nuevoArray2.length;i++) {
+					if (nuevoArray2[i]!=null) {
+						controlador.borrar(nuevoArray2[i]);
+					}
+				}
+			}
+			else {
+				System.out.println("No existe ninguna reserva anulable para este huesped");
+			}
+		}
+	}
 	
 	
 	private void mostrarReservas() {
-		controlador.getReservas();
+		int contador=0;
+		
+		for (int i=0;i<controlador.getReservas().length;i++) {
+			if (controlador.getReservas()[i]!=null) {
+				contador++;}
+			}
+		if(contador>0) {
+			for (int i=0;i<controlador.getReservas().length;i++)
+				System.out.println(controlador.getReservas()[i]);
+		}
+		else {
+			System.out.println("No hay ninguna habitacion");
+		} 
 	}
 	
 	private Habitacion consultarDisponiblidad (TipoHabitacion tipoHabitacion, LocalDate fechaInicioReserva, LocalDate fechaFinReserva){
+		
 		Reserva [] nuevoArray=controlador.getReservas(tipoHabitacion);
 		boolean habitacionesLibres=false;
 		Habitacion habitacionDisponible=null;
 		
 		for (int i=0;i<nuevoArray.length;i++) {
-			
 			if(nuevoArray[i].getFechaFinReserva().isBefore(fechaInicioReserva)
-					&& nuevoArray[i].getFechaFinReserva().isBefore(fechaFinReserva))
-			{habitacionesLibres=true; habitacionDisponible=nuevoArray[i].getHabitacion();
+				&& nuevoArray[i].getFechaFinReserva().isBefore(fechaFinReserva)){
+				habitacionesLibres=true; habitacionDisponible=nuevoArray[i].getHabitacion();
 			}else {System.out.println("No libre");}
 			}
 		
-		if (habitacionesLibres=true){return habitacionDisponible; }else {return null;}
+		if (habitacionesLibres=true){
+			return habitacionDisponible; 
+			}else {
+				return null;}
 		}
 	
 	

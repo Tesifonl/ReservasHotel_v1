@@ -142,23 +142,8 @@ public class Consola {
 			}
 	}
 
-	public static LocalDate leerFecha(String mensaje ) {
-        String pattern = "yyyy-MM-dd";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        LocalDate fechaLocalDate=null;
-        String fecha;
-        
-       do { 
-            System.out.println("Introduce una fecha en formato yyyy-MM-dd");
-            fecha=Entrada.cadena();
-            fechaLocalDate = LocalDate.parse(fecha, formatter);
-            return fechaLocalDate;
-            
 
-        } while (fechaLocalDate==null);
-	}
-	
-	public static LocalDate leerFechaHora(String mensaje ) {
+	public static LocalDate leerFecha(String mensaje ) {
         String pattern = "yyyy-MM-dd";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
