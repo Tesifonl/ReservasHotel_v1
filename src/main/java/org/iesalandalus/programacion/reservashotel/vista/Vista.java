@@ -22,7 +22,7 @@ public class Vista {
 		}else {throw new NullPointerException("ERROR: No con un contralador nulo");}
 	}
 	
-	public void comenzar() {
+	public void comenzar() throws OperationNotSupportedException {
 		
 		do {
 			Consola.mostrarMenu();
@@ -35,80 +35,65 @@ public class Vista {
 		System.out.println("Gracias");
 	}
 	
-	private void ejecutarOpcion(Opcion opicion) {
+	private void ejecutarOpcion(Opcion opicion) throws OperationNotSupportedException {
 		
-		try {
-			switch (opcion) {
-		
-			case INSERTAR_HUESPED: {
-				insertarHuesped();
-				}break;
+		do {
+			if(opcion.equals(Opcion.INSERTAR_HUESPED)) {
+				insertarHuesped();}
 
-			case BUSCAR_HUESPED: {
-				buscarHuesped();
-			}break;
+			if(opcion.equals(Opcion.BUSCAR_HUESPED)) {
+				buscarHuesped();}
 			
-			case BORRAR_HUESPED: {
-				borrarHuesped();
-			}break;
+			if(opcion.equals(Opcion.BORRAR_HUESPED)) {
+				borrarHuesped();}
 			
-			case MOSTRAR_HUESPEDES: {
-				mostrarHuespedes();
-			}break;
+			if(opcion.equals(Opcion.MOSTRAR_HUESPEDES)) {
+				mostrarHuespedes();}
 			
-			case INSERTAR_HABITACION: {
-				insertarHabitacion();
-			}break;
+			if(opcion.equals(Opcion.INSERTAR_HABITACION)) {
+				insertarHabitacion();}
 			
-			case BUSCAR_HABITACION: {
-				buscarHabitacion();
-			}break;
+			if(opcion.equals(Opcion.BUSCAR_HABITACION)) {
+				buscarHabitacion();}
 			
-			case BORRAR_HABITACION: {
-				borrarHabitacion();
-			}break;
+			if(opcion.equals(Opcion.BORRAR_HABITACION)) {
+				borrarHabitacion();}
 			
-			case MOSTRAR_HABITACIONES: {
-				mostrarHabitaciones();
-			}break;
+			if(opcion.equals(Opcion.MOSTRAR_HABITACIONES)) {
+				mostrarHabitaciones();}
 			
-			case INSERTAR_RESERVA : {
-				insertarReserva();
-			}break;
+			if(opcion.equals(Opcion.INSERTAR_RESERVA)) {
+				insertarReserva();}
 			
-			case ANULAR_RESERVA : {
-				anularReserva();
-			}break;
+			if(opcion.equals(Opcion.ANULAR_RESERVA)) {
+				anularReserva();}
 			
-			case MOSTRAR_RESERVAS : {
-				mostrarReservas();
-			}break;	
+			if(opcion.equals(Opcion.MOSTRAR_RESERVAS)) {
+				mostrarReservas();}	
 			
-			case CONSULTAR_DISPONIBILIDAD : {
-			}break;	
+			if(opcion.equals(Opcion.CONSULTAR_DISPONIBILIDAD)) {
+				System.out.println("Introduce el tipo de habitacion");
+				TipoHabitacion tipoHabitacion=Consola.leerTipoHabitacion();
+				System.out.println("Introduce la fecha de inicio de la reserva");
+				String fecha1=Entrada.cadena();
+				LocalDate fechaInicioReserva=Consola.leerFecha(fecha1);
+				System.out.println("Introduce la fecha de fin de la reserva");
+				String fecha2=Entrada.cadena();
+				LocalDate fechaFinReserva=Consola.leerFecha(fecha2);
+				
+				consultarDisponiblidad (tipoHabitacion,fechaInicioReserva,fechaFinReserva);
+			}	
 			
-			case REALIZAR_CHECKIN : {
-				realizarChechin();
-			}break;	
+			if(opcion.equals(Opcion.REALIZAR_CHECKIN)) {
+				realizarChechin();}
 			
-			case REALIZAR_CHECKOUT: {
-				realizarChechout();
-			}break;
-			
-			case SALIR: {
-				break;
-			}
-			default: {
-				System.out.println("Opción incorrecta");
-			}
-		}
+			if(opcion.equals(Opcion.REALIZAR_CHECKOUT)) {
+				realizarChechout();}
+
+		}while(opcion!=Opcion.SALIR);
 	}
-	catch (Exception ex) {
-		System.out.println(ex.getMessage());
-	}
-}
-	
-	
+
+
 	private void insertarHuesped() throws OperationNotSupportedException {
 		try {
 			controlador.insertar(Consola.leerHuesped());

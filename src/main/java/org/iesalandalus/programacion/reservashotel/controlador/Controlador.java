@@ -23,7 +23,7 @@ public class Controlador {
 		vista.setControlador(new Controlador(modelo,vista));
 		}else {throw new NullPointerException("ERROR: No es posible por no llegar un obejto");}
 	}
-	public void comenzar() {
+	public void comenzar() throws OperationNotSupportedException {
 		modelo.comenzar();
 		vista.comenzar();
 	}
