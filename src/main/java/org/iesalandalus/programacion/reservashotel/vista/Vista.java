@@ -26,7 +26,8 @@ public class Vista {
 		
 		do {
 			Consola.mostrarMenu();
-			ejecutarOpcion(Consola.elegirOpcion());
+			opcion = Consola.elegirOpcion();
+			ejecutarOpcion(opcion);
 		}while (!opcion.equals(Opcion.SALIR));
 		
 	}
@@ -35,62 +36,61 @@ public class Vista {
 		System.out.println("Gracias");
 	}
 	
-	private void ejecutarOpcion(Opcion opicion) throws OperationNotSupportedException {
+	private void ejecutarOpcion(Opcion opcion) throws OperationNotSupportedException {
+
+		if(opcion.equals(Opcion.INSERTAR_HUESPED)) {
+			insertarHuesped();}
+
+		if(opcion.equals(Opcion.BUSCAR_HUESPED)) {
+			buscarHuesped();}
 		
-		do {
-			if(opcion.equals(Opcion.INSERTAR_HUESPED)) {
-				insertarHuesped();}
+		if(opcion.equals(Opcion.BORRAR_HUESPED)) {
+			borrarHuesped();}
+		
+		if(opcion.equals(Opcion.MOSTRAR_HUESPEDES)) {
+			mostrarHuespedes();}
+		
+		if(opcion.equals(Opcion.INSERTAR_HABITACION)) {
+			insertarHabitacion();}
+		
+		if(opcion.equals(Opcion.BUSCAR_HABITACION)) {
+			buscarHabitacion();}
+		
+		if(opcion.equals(Opcion.BORRAR_HABITACION)) {
+			borrarHabitacion();}
+		
+		if(opcion.equals(Opcion.MOSTRAR_HABITACIONES)) {
+			mostrarHabitaciones();}
+		
+		if(opcion.equals(Opcion.INSERTAR_RESERVA)) {
+			insertarReserva();}
+		
+		if(opcion.equals(Opcion.ANULAR_RESERVA)) {
+			anularReserva();}
+		
+		if(opcion.equals(Opcion.MOSTRAR_RESERVAS)) {
+			mostrarReservas();}	
+		
+		if(opcion.equals(Opcion.CONSULTAR_DISPONIBILIDAD)) {
+			System.out.println("Introduce el tipo de habitacion");
+			TipoHabitacion tipoHabitacion=Consola.leerTipoHabitacion();
+			System.out.println("Introduce la fecha de inicio de la reserva");
+			String fecha1=Entrada.cadena();
+			LocalDate fechaInicioReserva=Consola.leerFecha(fecha1);
+			System.out.println("Introduce la fecha de fin de la reserva");
+			String fecha2=Entrada.cadena();
+			LocalDate fechaFinReserva=Consola.leerFecha(fecha2);
+			
+			Habitacion habitacion = consultarDisponiblidad (tipoHabitacion,fechaInicioReserva,fechaFinReserva);
+			System.out.println(habitacion);
+		}	
+		
+		if(opcion.equals(Opcion.REALIZAR_CHECKIN)) {
+			realizarChechin();}
+		
+		if(opcion.equals(Opcion.REALIZAR_CHECKOUT)) {
+			realizarChechout();}
 
-			if(opcion.equals(Opcion.BUSCAR_HUESPED)) {
-				buscarHuesped();}
-			
-			if(opcion.equals(Opcion.BORRAR_HUESPED)) {
-				borrarHuesped();}
-			
-			if(opcion.equals(Opcion.MOSTRAR_HUESPEDES)) {
-				mostrarHuespedes();}
-			
-			if(opcion.equals(Opcion.INSERTAR_HABITACION)) {
-				insertarHabitacion();}
-			
-			if(opcion.equals(Opcion.BUSCAR_HABITACION)) {
-				buscarHabitacion();}
-			
-			if(opcion.equals(Opcion.BORRAR_HABITACION)) {
-				borrarHabitacion();}
-			
-			if(opcion.equals(Opcion.MOSTRAR_HABITACIONES)) {
-				mostrarHabitaciones();}
-			
-			if(opcion.equals(Opcion.INSERTAR_RESERVA)) {
-				insertarReserva();}
-			
-			if(opcion.equals(Opcion.ANULAR_RESERVA)) {
-				anularReserva();}
-			
-			if(opcion.equals(Opcion.MOSTRAR_RESERVAS)) {
-				mostrarReservas();}	
-			
-			if(opcion.equals(Opcion.CONSULTAR_DISPONIBILIDAD)) {
-				System.out.println("Introduce el tipo de habitacion");
-				TipoHabitacion tipoHabitacion=Consola.leerTipoHabitacion();
-				System.out.println("Introduce la fecha de inicio de la reserva");
-				String fecha1=Entrada.cadena();
-				LocalDate fechaInicioReserva=Consola.leerFecha(fecha1);
-				System.out.println("Introduce la fecha de fin de la reserva");
-				String fecha2=Entrada.cadena();
-				LocalDate fechaFinReserva=Consola.leerFecha(fecha2);
-				
-				consultarDisponiblidad (tipoHabitacion,fechaInicioReserva,fechaFinReserva);
-			}	
-			
-			if(opcion.equals(Opcion.REALIZAR_CHECKIN)) {
-				realizarChechin();}
-			
-			if(opcion.equals(Opcion.REALIZAR_CHECKOUT)) {
-				realizarChechout();}
-
-		}while(opcion!=Opcion.SALIR);
 	}
 
 
@@ -108,7 +108,14 @@ public class Vista {
 	
 	private void buscarHuesped() {
 		try {
-			controlador.buscar(Consola.getHuespedPorDni());
+			Huesped huesped = controlador.buscar(Consola.getHuespedPorDni());
+			
+			if (huesped != null) {
+				System.out.println(huesped);
+			}
+			else {
+				System.out.println("No existe un huesped con ese DNI");
+			}
 		}
 		catch(NullPointerException e){
 			System.out.println(e.getMessage());
@@ -132,8 +139,11 @@ public class Vista {
 				contador++;}
 			}
 		if(contador>0) {
-			for (int i=0;i<controlador.getHuespedes().length;i++)
-				System.out.println(controlador.getHuespedes()[i]);
+			for (int i=0;i<controlador.getHuespedes().length;i++) {
+				if (controlador.getHuespedes()[i] != null) {
+					System.out.println(controlador.getHuespedes()[i]);
+				}
+			}
 		}
 		else {
 			System.out.println("No hay ningun huesped");
@@ -152,7 +162,14 @@ public class Vista {
 	
 	private void buscarHabitacion() {
 		try {	
-			controlador.buscar(Consola.leerHabitacionPorIdentificador());
+			Habitacion habitacion = controlador.buscar(Consola.leerHabitacionPorIdentificador());
+			
+			if (habitacion != null) {
+				System.out.println(habitacion);
+			}
+			else {
+				System.out.println("No existe una habitación para esa planta y puerta");
+			}
 		}
 		catch(NullPointerException e){
 			System.out.println(e.getMessage());}
@@ -176,8 +193,11 @@ public class Vista {
 				contador++;}
 			}
 		if(contador>0) {
-			for (int i=0;i<controlador.getHabitaciones().length;i++)
-				System.out.println(controlador.getHabitaciones()[i]);
+			for (int i=0;i<controlador.getHabitaciones().length;i++) {
+				if (controlador.getHabitaciones()[i] != null) {
+					System.out.println(controlador.getHabitaciones()[i]);
+				}
+			}
 		}
 		else {
 			System.out.println("No hay ninguna habitacion");
@@ -225,7 +245,7 @@ public class Vista {
 		Reserva [] nuevoArray=new Reserva[reservasAAnular.length];
 		
 		 for (int i=0; i<reservasAAnular.length;i++) {
-			 if (reservasAAnular[i].getFechaInicioReserva().isAfter(LocalDate.now())) {
+			 if (reservasAAnular[i] != null && reservasAAnular[i].getFechaInicioReserva().isAfter(LocalDate.now())) {
 				 reservasAnulables=true;
 				 nuevoArray[posicion]=reservasAAnular[i];
 				 posicion++;
@@ -248,12 +268,14 @@ public class Vista {
 			
 			if (nuevoArray2.length > 0) {
 				for (int i=0;i<nuevoArray2.length;i++) {
+					if (nuevoArray2[i] != null) {
 						System.out.println("Puede anular la reserva nº"
 						+i 
 						+"detallada seguidamente"
 						+nuevoArray2[i]);
 					}
 				}
+			}
 			
 			System.out.println("Introduce el numero de reserva a anular");
 			posicion=Entrada.entero();
@@ -275,8 +297,11 @@ public class Vista {
 				contador++;}
 			}
 		if(contador>0) {
-			for (int i=0;i<controlador.getReservas().length;i++)
-				System.out.println(controlador.getReservas()[i]);
+			for (int i=0;i<controlador.getReservas().length;i++) {
+				if (controlador.getReservas()[i] != null) {
+					System.out.println(controlador.getReservas()[i]);
+				}
+			}	
 		}
 		else {
 			System.out.println("No hay ninguna habitacion");
@@ -289,18 +314,31 @@ public class Vista {
 		boolean habitacionesLibres=false;
 		Habitacion habitacionDisponible=null;
 		
-		for (int i=0;i<nuevoArray.length;i++) {
-			if(nuevoArray[i].getFechaFinReserva().isBefore(fechaInicioReserva)
-				&& nuevoArray[i].getFechaFinReserva().isBefore(fechaFinReserva)){
-				habitacionesLibres=true; habitacionDisponible=nuevoArray[i].getHabitacion();
-			}else {System.out.println("No libre");}
-			}
-		
-		if (habitacionesLibres=true){
-			return habitacionDisponible; 
+		if (nuevoArray != null) {
+			for (int i=0;i<nuevoArray.length;i++) {
+				if(nuevoArray[i] != null && nuevoArray[i].getFechaFinReserva().isBefore(fechaInicioReserva)
+					&& nuevoArray[i].getFechaFinReserva().isBefore(fechaFinReserva)){
+					habitacionesLibres=true; 
+					habitacionDisponible=nuevoArray[i].getHabitacion();
+				}else {System.out.println("No libre");}
+				}
+			
+			if (habitacionesLibres==true){
+				return habitacionDisponible; 
 			}else {
-				return null;}
+				return null;
+			}
 		}
+		else {
+			Habitacion[] habitacionesTipo = controlador.getHabitaciones(tipoHabitacion);
+			if (habitacionesTipo.length > 0) {
+				return habitacionesTipo[0];
+			}
+			else {
+				return null;
+			}
+		}
+	}
 	
 	
 	private void realizarChechin() {

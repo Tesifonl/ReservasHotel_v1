@@ -49,8 +49,7 @@ public class Huespedes {
 	}
 	
 	public int getCapacidad () {
-		System.out.println(coleccionHuespedes.length);
-			return coleccionHuespedes.length;
+		return coleccionHuespedes.length;
 	}
 	
 	/*huespedes[i] != null && huespedes[i].equals(objetoComparado)*/
@@ -60,7 +59,7 @@ public class Huespedes {
 		
 		if(huesped!=null) {
 			for (int i=0;i<coleccionHuespedes.length;i++) 
-				if(coleccionHuespedes[i] != null && coleccionHuespedes[i].equals(huesped)) {
+				if(coleccionHuespedes[i] != null && coleccionHuespedes[i].getDni().equals(huesped.getDni())) {
 					throw new OperationNotSupportedException("ERROR: Ya existe un hu�sped con ese dni.");}
 				else {
 					noEncontrado=true;}
@@ -105,15 +104,17 @@ public class Huespedes {
 	
 	
 	public Huesped buscar(Huesped huesped) {	
+		int posicion = 0;
 		if(huesped!=null) {
 			boolean encontrado=false;
 			
 			for (int i=0;i<coleccionHuespedes.length;i++) {
-				if(coleccionHuespedes[i] != null && coleccionHuespedes[i].equals(huesped)) {
+				if(coleccionHuespedes[i] != null && coleccionHuespedes[i].getDni().equals(huesped.getDni())) {
+					posicion = i;
 					encontrado=true;}
 			}
 			
-			if (encontrado==true) {return new Huesped(huesped);}else {return null;}
+			if (encontrado==true) {return new Huesped(coleccionHuespedes[posicion]);}else {return null;}
 		}else {throw new NullPointerException("ERROR: No se puede buscar un huesped nulo");}
 	}
 		

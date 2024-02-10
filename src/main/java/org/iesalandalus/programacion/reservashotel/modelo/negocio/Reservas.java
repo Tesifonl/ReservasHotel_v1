@@ -54,7 +54,6 @@ public class Reservas {
 	}
 	
 	public int getCapacidad() {
-		System.out.println(coleccionReservas.length);
 		return coleccionReservas.length;
 	}
 	
@@ -110,6 +109,7 @@ public class Reservas {
 	}
 	
 	public Reserva buscar(Reserva reserva) {	
+		
 		if(reserva!=null) {
 			boolean encontrado=false;
 			
@@ -161,7 +161,7 @@ public class Reservas {
 	
 		
 		for (int i=0;i<coleccionReservas.length;i++) {
-			if(coleccionReservas[i].getHuesped().equals(huesped)) {
+			if(coleccionReservas[i] != null && coleccionReservas[i].getHuesped().getDni().equals(huesped.getDni())) {
 				encontrado=true;
 				nuevoArray[posicion]=coleccionReservas[i];
 				posicion++;
@@ -185,7 +185,7 @@ public class Reservas {
 			int posicion=0;
 			
 			for (int i=0;i<coleccionReservas.length;i++) {
-				if(coleccionReservas[i].getHabitacion().getTipoHabitacion().equals(tipoHabitacion)) {
+				if(coleccionReservas[i] != null && coleccionReservas[i].getHabitacion().getTipoHabitacion().equals(tipoHabitacion)) {
 				encontrado=true;
 				nuevoArray[posicion]=coleccionReservas[i];
 				posicion++;

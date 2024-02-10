@@ -168,7 +168,7 @@ public class Consola {
 			double precio=Entrada.real();
 			String identificador=String.valueOf(planta)+String.valueOf(puerta);
 			System.out.println("Introduce una  tipo de habitacion: ");
-			TipoHabitacion tipoHabitacion=TipoHabitacion.valueOf(Entrada.cadena());
+			TipoHabitacion tipoHabitacion=leerTipoHabitacion();
 
 			Habitacion habitacion=new Habitacion( planta,puerta,precio,identificador,tipoHabitacion);
 			return habitacion;
@@ -188,7 +188,7 @@ public class Consola {
 		System.out.println("Introduce un puerta: ");
 		int puerta=Entrada.entero();
 		
-		Habitacion habitacion=new Habitacion( planta, puerta, 0, "1001", TipoHabitacion.DOBLE);
+		Habitacion habitacion=new Habitacion( planta, puerta, 50, TipoHabitacion.DOBLE);
 		return habitacion;
 		}
 		catch(IllegalArgumentException e){
@@ -206,7 +206,8 @@ public class Consola {
 		TipoHabitacion tipoHabitacionElegida=null;
 		
 		System.out.println("Introduce una numero para elegir el tipo de habitacion: ");
-	
+		eleccion = Entrada.entero();
+		
 		switch (eleccion)
 		
 		{
@@ -232,9 +233,9 @@ public class Consola {
 		Regimen RegimenElegido=null;
 		
 		System.out.println("Introduce una numero para elegir el tipo de regimen: ");
+		eleccion = Entrada.entero();
 	
 		switch (eleccion)
-		
 		{
 			case 1:
 				RegimenElegido=Regimen.SOLO_ALOJAMIENTO;

@@ -54,14 +54,7 @@ public class Modelo {
 	
 	public Huesped [] getHuespedes(){
 		Huesped [] nuevoArray1=huespedes.get();
-		Huesped [] nuevoArray2= new Huesped [CAPACIDAD];
-		int contador=0;
-		
-		for(int i=0;i<nuevoArray1.length;i++) {
-		contador++;
-		nuevoArray2[contador]=nuevoArray1[i];}
-		
-		return nuevoArray2;
+		return nuevoArray1;
 	}
 	
 	public void insertar(Habitacion habitacion) throws OperationNotSupportedException {
@@ -86,26 +79,12 @@ public class Modelo {
 	
 	public Habitacion [] getHabitaciones(){
 		Habitacion [] nuevoArray1=habitaciones.get();
-		Habitacion [] nuevoArray2= new Habitacion [CAPACIDAD];
-		int contador=0;
-		
-		for(int i=0;i<nuevoArray1.length;i++) {
-		contador++;
-		nuevoArray2[contador]=nuevoArray1[i];}
-		
-		return nuevoArray2;
+		return nuevoArray1;
 	}
 	
 	public Habitacion [] getHabitaciones(TipoHabitacion tipoHabitacion){
 		Habitacion [] nuevoArray1=habitaciones.get(tipoHabitacion);
-		Habitacion [] nuevoArray2= new Habitacion [CAPACIDAD];
-		int contador=0;
-		
-		for(int i=0;i<nuevoArray1.length;i++) {
-		contador++;
-		nuevoArray2[contador]=nuevoArray1[i];}
-		
-		return nuevoArray2;
+		return nuevoArray1;
 	}
 	
 	public void insertar(Reserva reserva) throws OperationNotSupportedException {
@@ -129,38 +108,17 @@ public class Modelo {
 	
 	public Reserva [] getReservas(){
 		Reserva [] nuevoArray1=reservas.get();
-		Reserva [] nuevoArray2= new Reserva [CAPACIDAD];
-		int contador=0;
-		
-		for(int i=0;i<nuevoArray1.length;i++) {
-		contador++;
-		nuevoArray2[contador]=nuevoArray1[i];}
-		
-		return nuevoArray2;
+		return nuevoArray1;
 	}
 	
 	public Reserva [] getReservas(Huesped huesped){
 		Reserva [] nuevoArray1=reservas.getReservas(huesped);
-		Reserva [] nuevoArray2= new Reserva [CAPACIDAD];
-		int contador=0;
-		
-		for(int i=0;i<nuevoArray1.length;i++) {
-		contador++;
-		nuevoArray2[contador]=nuevoArray1[i];}
-		
-		return nuevoArray2;
+		return nuevoArray1;
 	}
 	
 	public Reserva [] getReservas(TipoHabitacion tipoHabitacion){
 		Reserva [] nuevoArray1=reservas.getReservas(tipoHabitacion);
-		Reserva [] nuevoArray2= new Reserva [CAPACIDAD];
-		int contador=0;
-		
-		for(int i=0;i<nuevoArray1.length;i++) {
-		contador++;
-		nuevoArray2[contador]=nuevoArray1[i];}
-		
-		return nuevoArray2;
+		return nuevoArray1;
 	}
 	
 	public void realizarCheckin(Reserva reserva, LocalDateTime fecha) throws OperationNotSupportedException {

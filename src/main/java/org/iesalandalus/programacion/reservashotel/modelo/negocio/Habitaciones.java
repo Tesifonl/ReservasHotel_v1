@@ -44,9 +44,9 @@ public class Habitaciones {
 			int contador=0;
 			
 			for (int i=0;i<coleccionHabitaciones.length;i++) {
-				if(coleccionHabitaciones[i].getTipoHabitacion().equals(tipoHabitacion)) {
-					contador++;
+				if(coleccionHabitaciones[i] != null && coleccionHabitaciones[i].getTipoHabitacion().equals(tipoHabitacion)) {
 					nuevoArray[contador]=coleccionHabitaciones[i];
+					contador++;
 				}
 			
 			}return nuevoArray;
@@ -64,7 +64,6 @@ public class Habitaciones {
 	}
 	
 	public int getCapacidad() {
-		System.out.println(coleccionHabitaciones.length);
 		return coleccionHabitaciones.length;
 	}
 	
@@ -120,14 +119,16 @@ public class Habitaciones {
 	public Habitacion buscar(Habitacion habitacion) {	
 		if(habitacion!=null) {
 			boolean encontrado=false;
-			
+			int posicion = 0;
 			for (int i=0;i<coleccionHabitaciones.length;i++) {
-				if(coleccionHabitaciones[i]!=null &&coleccionHabitaciones[i].equals(habitacion)) {
-					encontrado=true;}
+				if(coleccionHabitaciones[i]!=null 
+					&& coleccionHabitaciones[i].getIdentificador().equals(habitacion.getIdentificador())) {
+					encontrado=true;
+					posicion = i;}
 				}
 				
 			if (encontrado==true) {
-				return new Habitacion (habitacion);}else {return null;}
+				return new Habitacion (coleccionHabitaciones[posicion]);}else {return null;}
 		}else {throw new NullPointerException("ERROR: No se puede buscar una habitacion nula");}
 	}
 	
