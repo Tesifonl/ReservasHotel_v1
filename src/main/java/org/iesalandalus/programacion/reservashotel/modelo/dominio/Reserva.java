@@ -154,7 +154,16 @@ public class Reserva {
 		setRegimen(reserva.getRegimen());
 		setFechaInicioReserva(reserva.getFechaInicioReserva());
 		setFechaFinReserva(reserva.getFechaFinReserva());
-		setNumeroPersonas(reserva.getNumeroPersonas());}
+		setNumeroPersonas(reserva.getNumeroPersonas());
+		
+		if (reserva.getCheckIn() != null)
+			setCheckIn(reserva.getCheckIn());
+		
+		if (reserva.getCheckOut() != null)
+			setCheckOut(reserva.getCheckOut());
+		
+		setPrecio();
+		}
 	}
 	@Override
 	public int hashCode() {

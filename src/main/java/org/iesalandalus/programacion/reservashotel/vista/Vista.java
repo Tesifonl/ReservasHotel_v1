@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.reservashotel.vista;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.naming.OperationNotSupportedException;
 
@@ -316,12 +317,12 @@ public class Vista {
 		
 		if (nuevoArray != null) {
 			for (int i=0;i<nuevoArray.length;i++) {
-				if(nuevoArray[i] != null && nuevoArray[i].getFechaFinReserva().isBefore(fechaInicioReserva)
-					&& nuevoArray[i].getFechaFinReserva().isBefore(fechaFinReserva)){
+				if(nuevoArray[i] != null && (nuevoArray[i].getFechaFinReserva().isBefore(fechaInicioReserva)
+					|| nuevoArray[i].getFechaInicioReserva().isAfter(fechaFinReserva))){
 					habitacionesLibres=true; 
 					habitacionDisponible=nuevoArray[i].getHabitacion();
-				}else {System.out.println("No libre");}
 				}
+			}
 			
 			if (habitacionesLibres==true){
 				return habitacionDisponible; 
@@ -348,25 +349,29 @@ public class Vista {
 		int contador=0;
 		int posicion=0;
 		
-		for (int i=0;i<nuevoArray.length;i++) {
-			if (nuevoArray!=null) {
-				contador++;}
-
-		if (contador>0) {		
-			for (int j=0;j<nuevoArray.length;j++) {
-				if (nuevoArray!=null) {
-					System.out.println("Puede realizar checking de la reserva nº"
-					+j 
-					+"detallada seguidamente"
-					+nuevoArray[j]);}}
+		if (nuevoArray != null) {
+			for (int i=0;i<nuevoArray.length;i++) {
+				if (nuevoArray[i]!=null) {
+					contador++;}
+			}
 			
-		System.out.println("Introduce el numero de reserva a checar");
-		posicion=Entrada.entero();
-		reservaCheck=nuevoArray[posicion];
+			if (contador>0) {		
+				for (int j=0;j<nuevoArray.length;j++) {
+					if (nuevoArray[j]!=null) {
+						System.out.println("Puede realizar checking de la reserva nº"
+						+j 
+						+"detallada seguidamente"
+						+nuevoArray[j]);}}
+				
+			System.out.println("Introduce el numero de reserva a checar");
+			posicion=Entrada.entero();
+			reservaCheck=nuevoArray[posicion];
+				
+			controlador.realizarCheckin(reservaCheck,reservaCheck.getFechaInicioReserva().atStartOfDay());
+				}else {System.out.println("No existen reservas para este huesped");}
 			
-		controlador.realizarCheckin(reservaCheck,reservaCheck.getCheckIn());
-			}else {System.out.println("No existen reservas para este huesped");}
 		}
+		else {System.out.println("Lista de reservas vacia");}
 	}
 	private void realizarChechout() {
 		Reserva [] nuevoArray= controlador.getReservas(Consola.leerHuesped());
@@ -375,25 +380,28 @@ public class Vista {
 		int contador=0;
 		int posicion=0;
 		
-		for (int i=0;i<nuevoArray.length;i++) {
-			if (nuevoArray!=null) {
-				contador++;}
-
-		if (contador>0) {		
-			for (int j=0;j<nuevoArray.length;j++) {
-				if (nuevoArray!=null) {
-					System.out.println("Puede realizar checking de la reserva nº"
-					+j 
-					+"detallada seguidamente"
-					+nuevoArray[j]);}}
+		if (nuevoArray != null) {
+			for (int i=0;i<nuevoArray.length;i++) {
+				if (nuevoArray[i]!=null) {
+					contador++;}
+			}
 			
-		System.out.println("Introduce el numero de reserva a checar");
-		posicion=Entrada.entero();
-		reservaCheck=nuevoArray[posicion];
+			if (contador>0) {		
+				for (int j=0;j<nuevoArray.length;j++) {
+					if (nuevoArray[j]!=null) {
+						System.out.println("Puede realizar checking de la reserva nº"
+						+j 
+						+"detallada seguidamente"
+						+nuevoArray[j]);}}
+				
+			System.out.println("Introduce el numero de reserva a checar");
+			posicion=Entrada.entero();
+			reservaCheck=nuevoArray[posicion];
+				
+			controlador.realizarCheckout(reservaCheck, reservaCheck.getFechaFinReserva().atStartOfDay());
+				}else {System.out.println("No existen reservas para este huesped");}
 			
-		controlador.realizarCheckin(reservaCheck,reservaCheck.getCheckOut());
-			}else {System.out.println("No existen reservas para este huesped");}
 		}
+		else {System.out.println("Lista de reservas vacia");}	
 	}
-	
 }
