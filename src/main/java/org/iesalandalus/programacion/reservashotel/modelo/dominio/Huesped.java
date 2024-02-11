@@ -21,7 +21,7 @@ public class Huesped {
 	
 	private String formateaNombre(String nombre) {
 		
-		String[] formatoNombre=nombre.split("\\s ");
+		String[] formatoNombre=nombre.split(" ");
 		nombre="";
 		
 		for (int i=0;i<formatoNombre.length;i++) 
