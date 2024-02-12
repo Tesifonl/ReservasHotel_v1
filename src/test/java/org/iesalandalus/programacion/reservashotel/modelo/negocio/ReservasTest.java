@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.reservashotel.negocio;
+package org.iesalandalus.programacion.reservashotel.modelo.negocio;
 
 
 import org.iesalandalus.programacion.reservashotel.MainApp;
