@@ -1,7 +1,6 @@
 package org.iesalandalus.programacion.reservashotel.modelo.dominio;
 
-import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
-import org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.format.DateTimeFormatter;
