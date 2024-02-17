@@ -224,15 +224,24 @@ public class Reservas {
 	}
 
 	public void realizarCheckin(Reserva reserva, LocalDateTime fecha) {
+		Reserva reservaBuscada=null;
+		
 		if(reserva==null || fecha==null) {
 			throw new  NullPointerException("ERROR: No se puede hacer checkin de una reserva nula o sin fecha");
-		}else {reserva.setCheckIn(fecha);}
+		}else {			
+			reservaBuscada=buscar(reserva);
+			reservaBuscada.setCheckIn(fecha);}
 	}
 	
 	public void realizarCheckout(Reserva reserva, LocalDateTime fecha) {
+		Reserva reservaBuscada=null;
+		
 		if(reserva==null || fecha==null) {
 			throw new  NullPointerException("ERROR: No se puede hacer checkin de una reserva nula o sin fecha");
-		}else {reserva.setCheckOut(fecha);}
+		}else if (reserva.getCheckIn()==null){
+			System.out.println("ERROR: No se puede realizar el checkout a una reseva no checkin");
+		}else{reservaBuscada=buscar(reserva);
+			reservaBuscada.setCheckOut(fecha);}
 	}
 	
 	

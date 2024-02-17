@@ -107,9 +107,7 @@ public class Consola {
 			System.out.println("Introduce un telefono: ");
 			String telefono=Entrada.cadena();
 			System.out.println("Introduce una fecha nacimiento: ");
-			String pattern = "yyyy-MM-dd";
-			DateTimeFormatter formatter=DateTimeFormatter.ofPattern(pattern);
-			LocalDate fechaNacimiento=LocalDate.parse(Entrada.cadena(), formatter);
+			LocalDate fechaNacimiento=leerFecha(Entrada.cadena());
 
 			Huesped huesped=new Huesped( nombre, dni, correo, telefono, fechaNacimiento);
 			return huesped;
@@ -144,7 +142,7 @@ public class Consola {
 
 
 	public static LocalDate leerFecha(String mensaje ) {
-        String pattern = "yyyy-MM-dd";
+        String pattern = "dd/MM/yyyy";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
         try {
