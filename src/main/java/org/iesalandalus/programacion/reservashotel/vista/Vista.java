@@ -23,7 +23,7 @@ public class Vista {
 		}else {throw new NullPointerException("ERROR: No con un contralador nulo");}
 	}
 	
-	public void comenzar() throws OperationNotSupportedException {
+	public void comenzar() {
 		
 		do {
 			Consola.mostrarMenu();
@@ -37,7 +37,7 @@ public class Vista {
 		System.out.println("Gracias");
 	}
 	
-	private void ejecutarOpcion(Opcion opcion) throws OperationNotSupportedException {
+	private void ejecutarOpcion(Opcion opcion) {
 
 		if(opcion.equals(Opcion.INSERTAR_HUESPED)) {
 			insertarHuesped();}
@@ -95,7 +95,7 @@ public class Vista {
 	}
 
 
-	private void insertarHuesped() throws OperationNotSupportedException {
+	private void insertarHuesped() {
 		try {
 			controlador.insertar(Consola.leerHuesped());
 		}
